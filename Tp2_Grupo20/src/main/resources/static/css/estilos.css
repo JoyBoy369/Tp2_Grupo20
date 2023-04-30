@@ -163,9 +163,28 @@
 		background-color: rgba(249,249,250,0.6);
 	}
 	/* Cambiar el color de los enlaces a las sucursales */
-	 a{
+	section a{
 		font-weight: 600;
 		color: black;
 		padding-right: 10px;
 		
 	}
+		/*Sección de Servicio*/
+		table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: center;
+        padding: 8px;
+      }
+      th {
+        background-color:  #02581d;
+        color: white;
+      }
+      th, td {
+        border: 1px solid black;
+      }
+      tr:nth-child(even) {
+        background-color: rgba(255,255,255,0.6);
+      }
