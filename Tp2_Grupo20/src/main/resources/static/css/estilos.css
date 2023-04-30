@@ -1,0 +1,133 @@
+@charset "ISO-8859-1";
+	
+	 /*Regla_global */
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	.indexfont{
+		color: black;
+		font-size: 25px;
+		font-family: "Roboto Mono", monospace;
+		
+	}
+	
+	/*Establece_un_fondo_al_cuerpo */
+	body{
+		background-image: url(https://cdn.wallpapersafari.com/47/65/OwZ1UY.jpg);
+		background-repeat: no-repeat;
+		background-position: top right;
+		background-attachment: fixed;
+		background-size: cover;
+		
+		
+		}
+	 
+	 
+	footer{
+		background-color: #02581d;
+		position:absolute;
+		bottom: 0;
+		font-size: 20px;
+		color: white;
+		text-align: center;
+		align-self: flex-end;
+		right: 0;
+		left: 0;
+		
+	}
+	header {
+		display: flex;
+		justify-content: space-between;
+		background-color:  #02581d;
+		color: white;
+		align-items: center;
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;			
+	}
+
+	.logo{
+		height: 65px;
+	 
+	}
+	
+	.centrar{ /* esta clase permite centrar la imagen del index sin pisar el header */
+		background: rgba(255,255,255,0.4);
+		height: 70vh;		
+		margin: 5%;
+		backdrop-filter: blur(1px);
+		
+		display:flex;
+		flex-direction:column;
+		justify-content: center;
+		align-items: center;
+		
+	}
+	.centrar img{	
+		width: 500px ;
+		height:315px;		
+	}
+	
+	aside p{
+		 display: inline-block;
+		 justify-content: space-between;
+		 margin-left: 50px;
+		 margin-top: 20px;
+		font-size: medium;	
+		font-weight: bold;	
+	}
+	
+	#nombre, #correo, #ciudad, #mensaje{
+		background: rgba(249,249,250,0.6);
+		
+	}
+	
+	fieldset{
+		color: black;
+		background: rgba(249,249,250,0.6);
+	}
+	label{
+		color: black;
+		font-weight: bold;
+	}
+	
+
+	/* Pseudo-clases para los enlaces */
+	 a{
+		font-weight: 600;
+		color: white;
+		padding-right: 10px;
+		
+	}
+	
+	 a:hover {
+	color: #3DB41B;	
+}
+	li a{
+		font-weight: bold;
+		color: black;
+		padding-right: 10px;
+	}
+	/*Mi parte del trabajo en css*/
+	.color{
+	color: white;
+	font-family: "Roboto Mono", monospace;
+	background-color: #02581d;
+	}
+	
+	.consejos p{
+	font-family: "Arial", Arial;
+	font-size: 20px;
+	background-color: rgba(249,249,250,0.4);
+	}
+	.consejos{
+	font-family: "Arial", Arial;
+	}
+	.consejos h3{
+	color: #FF5733;
+	text-shadow: -1px -1px 1px #333, 1px -1px 1px #333, -1px 1px 1px #333, 1px 1px 1px #333;
+	background-color: rgba(249,249,250,0.6);
+	}
