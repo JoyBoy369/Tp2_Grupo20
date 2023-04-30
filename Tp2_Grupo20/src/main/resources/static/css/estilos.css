@@ -142,24 +142,3 @@
 		color: black;
 		padding-right: 10px;
 	}
-	
-	/*Seccion de Consejos*/
-	.color{
-	color: white;
-	font-family: "Roboto Mono", monospace;
-	background-color: #02581d;
-	}
-	
-	.consejos p{
-	font-family: "Arial", Arial;
-	font-size: 20px;
-	background-color: rgba(249,249,250,0.4);
-	}
-	.consejos{
-	font-family: "Arial", Arial;
-	}
-	.consejos h3{
-	color: #FF5733;
-	text-shadow: -1px -1px 1px #333, 1px -1px 1px #333, -1px 1px 1px #333, 1px 1px 1px #333;
-	background-color: rgba(249,249,250,0.6);
-	}
