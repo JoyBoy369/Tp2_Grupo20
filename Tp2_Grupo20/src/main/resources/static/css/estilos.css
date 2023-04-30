@@ -80,8 +80,25 @@
 		font-weight: bold;	
 	}
 	
-	.consejos{
+	
+					/* seccion contacto */
+	
+	#nombre, #correo, #ciudad, #mensaje{
+		background: rgba(249,249,250,0.6);
 		
+	}
+	
+	fieldset{ 
+		color: black;
+		background: rgba(249,249,250,0.6);
+	}
+	label{
+		color: black;
+		font-weight: bold;
+	}
+	
+					/*SECCION PRODUCTOS*/
+	.productos{
 		background: rgba(255,255,255,0.4);
 		height: 70vh;		
 		margin: 5%;
@@ -91,31 +108,24 @@
 		flex-direction:column;
 		justify-content: center;
 		align-items: center;
+	}
+	.productos img{
+		max-width: 300px;
+		max-height: 300px;		
+	}
+	
+	.productos h2{
+		font-size: 44px;
+		color: white;
+		font-family: "Roboto Mono", monospace;
+		font-weight: bold;	
+		text-shadow: -1px -1px 1px #333, 1px -1px 1px #333, -1px 1px 1px #333, 1px 1px 1px #333;
 		
-			}
-	consejos p, consejos h3{
-		margin-top: 10px;
-		margin-left: 50px;
 	}
 	
-	
-	
-	
-	#nombre, #correo, #ciudad, #mensaje{
-		background: rgba(249,249,250,0.6);
-		
+	.productos p {
+		font-size: 20px;
 	}
-	
-	fieldset{
-		color: black;
-		background: rgba(249,249,250,0.6);
-	}
-	label{
-		color: black;
-		font-weight: bold;
-	}
-	
-
 	/* Pseudo-clases para los enlaces */
 	 a{
 		font-weight: 600;
