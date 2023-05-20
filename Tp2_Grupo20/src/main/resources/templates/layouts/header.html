@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel= "stylesheet" th:href="@{/css/estilos.css}">
+<title>Header</title>
 </head>
 <body>
-
+	<header th:fragment="header">
+		<img class=logo alt="logo" th:src="@{/images/pellegrini.png}">			
+			<h1>Grupo Numero 20</h1>
+				<nav>						
+					<a th:href="@{/inicio}">Inicio</a>
+					<a href="productos.html"> Productos</a>
+					<a href="consejos.html">Consejos de Salud</a>
+					<a href="servicio.html">Servicio de Paseos</a>
+					<a th:href="@{/sucursales/listado}">Sucursales</a>
+					<a href="contacto.html">Contáctanos</a>						
+			</nav>
+	
+	</header>
 </body>
 </html>

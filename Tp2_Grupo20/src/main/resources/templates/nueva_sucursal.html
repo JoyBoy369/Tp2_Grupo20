@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel= "stylesheet" th:href="@{/css/estilos.css}">
+<title>Formulario_Nueva_Sucursal</title>
+</head >
+<body>
+
+<header th:replace="~{layouts/header :: header}"></header>
+
+
+<p>--</p>
+<p>--</p> 
+<p>--</p>
+<p>--</p>
+	<div class= productos>
+	
+	<section class=centrar>
+	<h2 th:text="${editar}?'Editar Sucursal':'Registrar Nueva Sucursal'"></h2><br></br>
+		<form th:action="${editar}?@{/sucursales/editar}:@{/sucursales/guardar}" th:object="${sucursal}" method="post" >
+		
+			<label>Nombre:</label>
+			<input type="text"  id="mensaje" name="sucursal_name" th:field="*{nombre}"><br><br>
+			
+			<label>Direccion:</label>
+			<input type="text" name="sucursal_direccion" id="mensaje" th:field="*{direccion}"><br><br>
+			
+			<label>Provincia:</label>
+			<select name="sucursal_provincia" id="mensaje" th:field="*{provincia}">
+				 <option value="Salta"> Salta</option>
+				 <option value="Jujuy"> Jujuy</option>
+				 <option value="Cordoba"> Cordoba</option>
+				 <option value="Tucuman"> Tucuman</option>
+				 <option value="Buenos Aires"> Buenos Aires</option>
+				 <option value="Tierra del Fuego"> Tierra del Fuego</option>
+				 <option value="Chaco"> Chaco</option>
+					 
+			</select><br><br>
+			
+			
+			<label>Fecha:</label>
+			<input type="date" name="sucursal_fecha" id="mensaje" th:field="*{fecha}"><br><br>
+			
+			<label>Correo:</label>
+			<input type="text" name="sucursal_direccion" id="mensaje" th:field="*{correo}"><br><br>
+			
+			<label>Telefono:</label>
+			<input type="text" name="sucursal_direccion" id="mensaje" th:field="*{telefono}"><br><br>
+			
+			
+				<a> <input type="submit" th:value="${editar}?'Editar': 'Agregar Sucursal'"/> </a>
+		
+		</form>
+		</section>
+    </div>
+    <footer th:replace="~{layouts/footer :: footer}"></footer>
+</body>
+</html>

@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html>
+!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel= "stylesheet" th:href="@{/css/estilos.css}">
+<title>Footer</title>
 </head>
 <body>
-
+	
+	<footer th:fragment= "footer">
+		<p>Copyright 2023 - Servicio en el cuidado de tus mascotas - Diseñado por Grupo 20 – Jujuy – República Argentina</p>
+	</footer>
 </body>
 </html>
