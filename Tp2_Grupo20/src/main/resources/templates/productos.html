@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
-    <link rel= "stylesheet" href=../static/css/estilos.css>
+    <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
     			<header>				
@@ -20,55 +20,32 @@
 				</header>
     <h1>Productos</h1>
 
-    <section>
-
-        <article class=productos>
-            <h2>Comida de Perro</h2>
-            <p>Maintenance Criadores Perro Adulto X 22 Kg</p>
-         
-            <img alt="Maintenance Criadores Perro Adulto X 22 Kg" src="../static/images/comidaperro.jpg" width="300"/>
-          
-            <p>Alimento pensado para perros adultos de todas las razas y tamaños a partir de 12 meses de edad con actividad física moderada a alta. Sus principales características son: alta palatabilidad, protección de la salud del pelo y la piel, fortalecimiento de huesos y articulaciones e incremento de las defensas.</p>
-        </article>
-           <br>
-        <article class=productos>
-           <h2>Collar Antipulgas Tea 327 Perros Grandes</h2>
-            <p>Descripcion de mi post</p>
-            <img alt="Collar Antipulgas Tea 327 Perros Grandes" src="../static/images/collar.png" width="300"/>
-            <p>Exclusiva matriz plástica de ingeniería autosaturada con micropartículas insecticidas que son liberadas en forma continua hacia la superficie del collar, funcionando como una talquera.
-
-				Desde la superficie del collar las particulas insecticidas se esparcen por todo el cuerpo del animal eliminando pulgas y garrapatas.
-
-TEA 327 COLLAR, es un collar de matriz plástica pulguicida y piojicida para perros y gatos que protege a tu mascota durante 5 meses de todo tipo de parásitos externos, actuando también como garrapaticida en caninos.</p>
-        </article >
-            <br>
-        <article class=productos>
-            <h2>Set de juguetes para perros</h2>
-            <p>Descripcion de mi post</p>
-            <img alt="Set de juguetes para perros" src="../static/images/juguetes.jpeg" width="300"/>
-            <p>Kit de juguetes todo en uno para tu mascota, cuenta con varios tipos para un mayor entretenimiento de su mascota, ademas estan echos de materiales duraderos</p>
-        </article>
-            <br>
-        <article class=productos>
-            <h2>Bolsa de residuos para mascotas</h2>
-            <p>Descripcion de mi post</p>
-            <img alt="Bolsa de resuiduos para mascotas" src="../static/images/bolsa.jpg" width="300"/>
-            <p>Repuesto Bolsas Sanitarias X3 Rollos Para Mascotas Perros K9</p>
-        </article>
-            <br>
-        <article class=productos>
-            <h2>Comedero y bebedero automatico</h2>
-            <p>Descripcion de mi post</p>
-            <img alt="Comedero y bebedero automatico" src="../static/images/comedero.jpeg" width="300"/>
-            <p>Como el recipiente es transparente, podrás controlar de un simple vistazo cuánta agua queda y rellenarla cuando sea preciso.
-
-Este práctico dispensador de agua está fabricado con plástico, por lo que su limpieza es sencilla.
-
-La abertura de la parte inferior permite que el agua fluya hasta el recipiente azul y que su nivel de llenado se mantenga constante.
-El borde de goma antideslizante de la base evita que se deslice sobre suelos lisos y que permanezca en su lugar.</p>
-        </article>
+    <section id="content-producto">
+    		<a th:href="@{/producto/nuevo}">Nuevo Producto</a>
+    		<table>
+    				<tr>
+    						<th>Nombre</th>
+    						<th>Categoria</th>
+    						<th>Codigo</th>
+    						<th>Precio</th>
+    						<th>Descuento</th>
+    						<th>Precio con Descuento</th>
+    						<th>Acciones</th>
+    				</tr>
+    				<tr th:each="prod: ${productos}">
+    					<td th:text="${prod.nombre}"></td>
+    					<td th:text="${prod.categoria}"></td>
+    					<td th:text="${prod.codigo}"></td>
+    					<td th:text="${prod.precio}"></td>
+    					<td th:text="${prod.descuento}"></td>
+    					<td th:text="${prod.precioConDescuento}"></td>
+    					
+    					<td>
+    						<a th:href="@{/producto/editar/}+${prod.codigo}">Editar</a>
+    						<a th:href="@{/producto/eliminar/}+${prod.codigo}">Eliminar</a>
+    					</td>
+    					
+    				</tr>
+    		</table>
          </section>
-    <p><a href="index.html">Atrás</a>
-    
-
 </body>
