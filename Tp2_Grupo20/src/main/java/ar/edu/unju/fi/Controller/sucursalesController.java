@@ -83,7 +83,8 @@ public class sucursalesController {
 				listaSucursales.getSucursal().remove(sucu);
 				break;
 			}
+			
 		}
 			return "redirect:/sucursales/listado";
 		}
-}
+}	
