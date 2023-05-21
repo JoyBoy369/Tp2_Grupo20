@@ -6,7 +6,7 @@
 <link rel= "stylesheet" th:href= "@{/css/estilos.css}">
 </head>
 <body>
-
+<header th:replace="~{layouts/header :: header}"></header>>		
 <fieldset class="centrar">
 	
 	<section class="consejos">
@@ -17,6 +17,7 @@
 			<tr>
 				<th>Titulo</th>
 				<th>Consejo</th>
+				<th>Acciones</th>
 			</tr>
 			<tr th:each="consej:${consejos}">
 				<td th:text="${consej.titulo}"></td>
@@ -29,6 +30,6 @@
 		</table>
 	</section>
 	</fieldset>
-	
+	<footer th:replace="~{layouts/footer :: footer}"></footer>
 </body>
 </html>
