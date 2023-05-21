@@ -4,75 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" href=../static/css/estilos.css>
+    <link rel= "stylesheet" th:href="@{/css/estilos.css}">
     <title>Document</title>
 </head>
 <body>
 
-<header>				
-					<img class=logo alt="logo" src="../static/images/pellegrini.png">			
-					<h1>Grupo Numero 20</h1>
-					<nav>						
-							<a href="index.html">Inicio</a>
-							<a href="productos.html"> Productos</a>
-							<a href="consejos.html">Consejos de Salud</a>
-							<a href="servicio.html">Servicio de Paseos</a>
-							<a href="sucursales.html">Sucursales</a>
-							<a href="contacto.html">Contáctanos</a>						
-					</nav>
-				</header>
+<header th:replace="~{layouts/header :: header}"></header>
 
  <section  class=productos>
     <h2 >Horarios de Paseo</h2>
+    <a th:href="@{/servicios/nuevo}">Nuevo Paseador</a>
     <table border="1" >
         <tr>
-          <th>Hora</th>
+          <th>Id</th>
+          <th>Nombre del Paseador</th>
           <th>Lunes</th>
           <th>Martes</th>
           <th>Miércoles</th>
           <th>Jueves</th>
           <th>Viernes</th>
-          <th>Sabado</th>
+            <th>Edicion</th>
+          
         </tr>
-        <tr>
-          <th>10:00 AM</th>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
+        <tr th:each="serv: ${servicios}">
+         
+          <td th:text= "${serv.id}"></td>
+          <td th:text= "${serv.nombre}"></td>
+          <td th:text= "${serv.lunes}"></td>
+          <td th:text= "${serv.martes}"></td>
+          <td th:text= "${serv.miercoles}"></td>
+          <td th:text= "${serv.jueves}"></td>
+          <td th:text= "${serv.viernes}"></td>
+          
+          <td>
+				<a th:href ="@{/servicios/editar/}+${serv.id}">Editar</a>
+				<a th:href ="@{/servicios/eliminar/}+${serv.id}">Eliminar</a>
+				
+		</td>
+         
         </tr>
-        <tr>
-          <th>12:00 AM</th>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-        </tr>
-        <tr>
-          <th>4:00 PM</th>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-        </tr>
-        <tr>
-          <th>6:00 PM</th>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-          <td>Paseador 2</td>
-          <td>Paseador 1</td>
-        </tr>
-
+       
 </table>
 </section>
 
+	<footer th:replace="~{layouts/footer :: footer}"></footer>
 </body>
 </html>
