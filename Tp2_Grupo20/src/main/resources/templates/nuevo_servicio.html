@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Formulario</title>
+<link rel= "stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+	<header th:replace="~{layouts/header :: header}"></header>
+		<div class="productos">
+			<h2 th:text="${editar}?'Editar Paseador':'Registrar Nuevo Paseador'"></h2><br></br>
+			<form  th:action="${editar}?@{/servicios/editar}:@{/servicios/guardar}" th:object="${servicio}" method="post" >
+			
+				<label>ID:</label>
+				<input type="text"  id="mensaje" name="servicio_id" th:field="*{id}"><br><br>
+				
+				<label>Nombre:</label>
+				<input type="text"  id="mensaje" name="servicio_nombre" th:field="*{nombre}"><br><br>
+				
+				<p>Horario disponibles:</p>
+				<label>Lunes:</label>
+				<input type="time"  id="mensaje" name="servicio_lunes" th:field="*{lunes}"><br><br>
+				
+				<label>Martes:</label>
+				<input type="time"  id="mensaje" name="servicio_martes" th:field="*{martes}"><br><br>
+				
+				<label>Miercoles:</label>
+				<input type="time"  id="mensaje" name="servicio_miercoles" th:field="*{miercoles}"><br><br>
+				
+				<label>Jueves:</label>
+				<input type="time"  id="mensaje" name="servicio_lunes" th:field="*{jueves}"><br><br>
+				
+				<label>Viernes:</label>
+				<input type="time"  id="mensaje" name="servicio_viernes" th:field="*{viernes}"><br><br>
+				
+				<a> <input type="submit" th:value="${editar}?'Editar': 'Agregar Servicio'"/> </a>
+				
+				
+			
+			</form>
+		
+		
+		
+		</div>
+		
+	
+	
+	
+	
+	
+	
+	<footer th:replace="~{layouts/footer :: footer}"></footer>
+</body>
+</html>

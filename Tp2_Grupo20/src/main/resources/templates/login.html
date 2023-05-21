@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel= "stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+
+<section class="productos">
+<form th:action="@{/login/entrar}" th:object="${formLogin}" method="post">
+
+	<label> Nombre</label>
+	<input type="text" th:field="*{usuario}">
+	
+	<label> Clave</label>
+	<input type="password" th:field="*{clave}">
+	<input type="submit" value="Ingresar">
+
+
+
+</form>
+
+<p th:if="${error}" th:text="${error}"></p><br><br>
+
+
+<p>Usuario: admin</p>
+<p>Clave: admin</p>
+
+
+</section>
+
+<footer th:replace="~{layouts/footer :: footer}"></footer>>
+	
+</body>
+</html>

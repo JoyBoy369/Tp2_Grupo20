@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>NuevoProducto</title>
+    <link rel= "stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+		<section class=productos>
+				<h3 th:text="${edicion}?'Editar Producto' : 'Nuevo Producto'"></h3><br><br>
+				
+				<form th:action="${edicion}?@{/producto/editar}:@{/producto/guardar}" th:object="${producto}" method="post">
+				
+					<label for="nombre">Nombre</label>
+					<input type="text" id="nombre" name="producto_nombre"	th:field="*{nombre}"><br><br>
+					
+					<label for="categoria">Categoria</label>		
+					<select name="categoria" id="mensaje" th:field="*{categoria}">
+						 <option value="Comida"> Comida</option>
+						 <option value="Limpieza"> Limpieza</option>
+						 <option value="Hiegene"> Higiene</option>
+						 <option value="Inmueble"> Inmueble</option>
+						 <option value="Accesorios"> Accesorios</option>
+						 <option value="Servicios"> Servicios</option>
+						 <option value="Salud"> Salud</option>
+							 
+					</select><br><br>
+					<label for="codigo">Codigo</label>
+					<input type="text" id="codigo" name="producto_codigo"	th:field="*{codigo}"><br><br>
+					
+					<label for="precio">Precio</label>
+					<input type="text" id="precio" name="producto_precio"	th:field="*{precio}"><br><br>
+					
+					<label for="descuento">Descuento</label>
+					<input type="text" id="descuento" name="producto_descuento"	th:field="*{descuento}"><br><br>
+					
+					<p><input type="submit" class="button" th:value="${edicion}?'Editar':'Guardar'"></p>
+					
+				</form>
+
+		</section>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <title>Nuevo Consejo de Salud</title>
+</head>
+<body>
+<section class= centrar>
+    <h1 th:text= "${editar}?'Editar Consejo':'Registrar nuevo Consejo'"></h1><br><br>
+    <form th:action="${editar}?@{/consejos/editar}:@{/consejos/Guardar_Consejo}"th:object="${consejo}"method="post">
+    	<label>Titulo:</label>
+    	<input type="text" name="Titulo_Consejo" id="mensaje" th:field="*{titulo}"><br><br>
+    	<label>Consejo:</label>
+    	<input type="text" name="Consejo" id="mensaje" th:field="*{consejo}"><br><br>
+    	<a><input type="submit" th:value="${editar}?'Editar': 'Agregar Consejo'"></a>
+    </form>
+    </section>
+</body>
+</html>

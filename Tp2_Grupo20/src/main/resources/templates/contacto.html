@@ -1,51 +1,47 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Contactanos</title>
-    <link rel= "stylesheet" href=../static/css/estilos.css>
-</head>
-<body>
-		<header>	
-				<img class=logo alt="logo" src="../static/images/pellegrini.png">			
-				<h1>Grupo Numero 20</h1>
-				<nav>						
-						<a href="index.html">Inicio</a>
-						<a href="productos.html"> Productos</a>
-						<a href="consejos.html">Consejos de Salud</a>
-						<a href="servicio.html">Servicio de Paseos</a>
-						<a href="sucursales.html">Sucursales</a>
-						<a href="contacto.html">Contáctanos</a>						
-				</nav>
-		</header>	
-    
-    <div class= centrar>
-	    <fieldset>
-	        <h1>Contáctanos</h1>
-	        <p></p>
-	        Gral. Balcarce 367, Y4600 San Salvador de Jujuy, Jujuy
-	        <ul style="list-style: none;">
-	            <li><a href="https://www.facebook.com/">Facebook</a></li>
-	            <li><a href="https://www.instagram.com/">Instagram</a></li>
-	            <li><a href="https://twitter.com">Twitter</a></li>
-	        </ul>
-	        <hr>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+	<head>
+    	<meta charset="UTF-8">
+   		<title>Contactanos</title>
+    <link rel= "stylesheet" th:href="@{/css/estilos.css}">
+	</head>
+	<body>
+		<header th:replace="~{layouts/header :: header}">	
+		
+		</header>
+		<fieldset class="productos">
+		
+			
+			<section class="productos">
+				<a th:href="@{/contacto/nuevo}">Nuevo Contacto</a>
+				<h2>Contacto </h2>
 				
-	        <form action="enviar.php" method="post">
-	            <label for="nombre">Nombre:</label>
-	            <input type="text" id="nombre" name="nombre"><br><br>
-	            <label for="correo">Correo:</label>
-	            <input type="email" id="correo" name="correo"><br><br>
-	            <label for="ciudad">Ciudad:</label>
-	            <input type="text" id="ciudad" name="ciudad"><br><br>
-	            <label for="mensaje">Mensaje:</label>
-	            <textarea id="mensaje" name="mensaje" rows="5" cols="30"></textarea><br><br>
-	            <input type="submit" value="Enviar" id="enviar">
-	        </form>
-	    </fieldset>
-    </div>
-   
-
-</body>
-
+					<table>
+						<tr>
+							<th> Nombre</th>
+							<th> Correo</th>
+							<th> Ciudad</th>
+							<th> Mensaje</th>
+							<th> Acciones</th>
+						</tr>
+						
+						<tr th:each="contac: ${contacto}">
+							<td th:text= "${contac.nombre}"></td>
+							<td th:text= "${contac.correo}"></td>
+							<td th:text= "${contac.ciudad}"></td>
+							<td th:text= "${contac.mensaje}"></td>
+							<td>
+								<a th:href ="@{/contacto/editar/}+${contac.nombre}">Editar</a>
+								<a th:href ="@{/contacto/eliminar/}+${contac.nombre}">Eliminar</a>
+							</td>
+							
+						
+						
+						</tr>
+					</table>
+						
+			</section>
+		</fieldset>
+		<footer th:replace="~{layouts/footer :: footer}"></footer>>
+	</body>
 </html>
