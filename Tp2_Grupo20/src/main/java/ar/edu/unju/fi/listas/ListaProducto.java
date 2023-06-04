@@ -2,8 +2,10 @@ package ar.edu.unju.fi.listas;
 
 import java.util.ArrayList;
 import java.util.List;
-import ar.edu.unju.fi.model.Productos;
+import org.springframework.stereotype.Component;
 
+import ar.edu.unju.fi.model.Productos;
+@Component
 public class ListaProducto {
 	private List<Productos> productos;
 	
