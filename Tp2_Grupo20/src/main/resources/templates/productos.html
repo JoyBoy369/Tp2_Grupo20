@@ -3,43 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
+    <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
     			<header th:replace="~{layouts/header :: header}"></header>>				
-					
-			
-    <h1>Productos</h1>
+				<div class="container-lg fondo mt-5">
+				<a class="links" th:href="@{/producto/nuevo}">Nuevo Producto</a>
+    <h1 class="color-font">Productos</h1>
 
 <fieldset class="productos">
     <section class="productos">
-    		<a th:href="@{/producto/nuevo}">Nuevo Producto</a>
-    		<table>
+    		
+    		<table class="table">
+    		<caption>Lista de Productos Disponibles</caption>
+    		<thead>
     				<tr>
-    						<th>Nombre</th>
-    						<th>Categoria</th>
-    						<th>Codigo</th>
-    						<th>Precio</th>
-    						<th>Descuento</th>
-    						<th>Precio con Descuento</th>
-    						<th>Acciones</th>
+    						<th id="borde">Nombre</th>
+    						<th id="borde">Categoria</th>
+    						<th id="borde">Codigo</th>
+    						<th id="borde">Precio</th>
+    						<th id="borde">Descuento</th>
+    						<th id="borde">Precio con Descuento</th>
+    						<th id="borde">Acciones</th>
     				</tr>
+    		<thead>
+    		<tbody>
     				<tr th:each="prod: ${productos}">
-    					<td th:text="${prod.nombre}"></td>
-    					<td th:text="${prod.categoria}"></td>
-    					<td th:text="${prod.codigo}"></td>
-    					<td th:text="${prod.precio}"></td>
-    					<td th:text="${prod.descuento}"></td>
-    					<td th:text="${prod.precioConDescuento}"></td>
+    					<td id="borde" th:text="${prod.nombre}"></td>
+    					<td id="borde" th:text="${prod.categoria}"></td>
+    					<td id="borde" th:text="${prod.codigo}"></td>
+    					<td id="borde" th:text="${prod.precio}"></td>
+    					<td id="borde" th:text="${prod.descuento}"></td>
+    					<td id="borde" th:text="${prod.precioConDescuento}"></td>
     					
     					<td>
-    						<a th:href="@{/producto/editar/}+${prod.codigo}">Editar</a>
-    						<a th:href="@{/producto/eliminar/}+${prod.codigo}">Eliminar</a>
+    						<a class="links" th:href="@{/producto/editar/}+${prod.codigo}">Editar</a>
+    						<a class="links" th:href="@{/producto/eliminar/}+${prod.codigo}">Eliminar</a>
     					</td>
     					
     				</tr>
+    		</tbody>
     		</table>
          </section>
          </fieldset>
+         </div>
+			
          <footer th:replace="~{layouts/footer :: footer}"></footer>
+         <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
+</html>

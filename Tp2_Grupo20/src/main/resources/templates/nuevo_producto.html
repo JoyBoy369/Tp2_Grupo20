@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>NuevoProducto</title>
+    <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
+	<header th:replace="~{layouts/header :: header}"></header>>		
+		<div class="container-lg mt-4 desbordar fondo centrar-form">
+		<div class="row">
+		<div class="col p-5">
 		<section class=productos>
 				<h3 th:text="${edicion}?'Editar Producto' : 'Nuevo Producto'"></h3><br><br>
 				
@@ -13,9 +18,11 @@
 				
 					<label for="nombre">Nombre</label>
 					<input type="text" id="nombre" name="producto_nombre"	th:field="*{nombre}"><br><br>
+					<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div><br><br>
 					
 					<label for="categoria">Categoria</label>		
 					<select name="categoria" id="mensaje" th:field="*{categoria}">
+						 <option value=""> Seleccione una categoria</option>
 						 <option value="Comida"> Comida</option>
 						 <option value="Limpieza"> Limpieza</option>
 						 <option value="Hiegene"> Higiene</option>
@@ -25,25 +32,32 @@
 						 <option value="Salud"> Salud</option>
 							 
 					</select><br><br>
+					<div class="text-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div><br><br>
 					<label for="codigo">Codigo</label>
 					<input type="text" id="codigo" name="producto_codigo"	th:field="*{codigo}"><br><br>
+					<div class="text-danger" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div><br><br>
 					
 					<label for="precio">Precio</label>
+					
 					<input type="text" id="precio" name="producto_precio"	th:field="*{precio}"><br><br>
+					<div class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div><br><br>
 					
 					<label for="descuento">Descuento</label>
 					<input type="text" id="descuento" name="producto_descuento"	th:field="*{descuento}"><br><br>
+					<div class="text-danger" th:if="${#fields.hasErrors('descuento')}" th:errors="*{descuento}"></div><br><br>
 					
-					<p><input type="submit" class="button" th:value="${edicion}?'Editar':'Guardar'"></p>
+					<div class="d-grid">
+                     <button type="submit" th:text="${edcion}?'Editar': 'Agregar Sucursal'"></button><br><br>
+                        <p></p>
+                    </div>
 					
 				</form>
 
 		</section>
-
-
-
-
-
-
+		</div>
+		</div>
+		</div>
+		 <footer th:replace="~{layouts/footer :: footer}"></footer>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
