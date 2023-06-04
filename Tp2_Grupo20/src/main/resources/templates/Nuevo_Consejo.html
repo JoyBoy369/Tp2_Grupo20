@@ -2,19 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
     <title>Nuevo Consejo de Salud</title>
 </head>
 <body>
-<section class= centrar>
+<header th:replace="~{layouts/header :: header}"></header>
+<div class = "container-lg mt-4 desbordar fondo centrar-form">
+<div class = "row">
+<div class = "col p-5">
+<section>
     <h1 th:text= "${editar}?'Editar Consejo':'Registrar nuevo Consejo'"></h1><br><br>
     <form th:action="${editar}?@{/consejos/editar}:@{/consejos/Guardar_Consejo}"th:object="${consejo}"method="post">
     	<label>Titulo:</label>
     	<input type="text" name="Titulo_Consejo" id="mensaje" th:field="*{titulo}"><br><br>
+    	<div class="text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div><br><br>
+    	
     	<label>Consejo:</label>
     	<input type="text" name="Consejo" id="mensaje" th:field="*{consejo}"><br><br>
-    	<a><input type="submit" th:value="${editar}?'Editar': 'Agregar Consejo'"></a>
+    	<div class="text-danger" th:if="${#fields.hasErrors('consejo')}" th:errors="*{consejo}"></div><br><br>
+    	<div class="d-grid">
+                     <button type="submit" th:text="${editar}?'Editar Consejo': 'Agregar Consejo'"></button><br><br>
+                        <p></p>
+                    </div>
     </form>
     </section>
+    </div>
+    </div>
+    </div>
+    <footer th:replace="~{layouts/footer :: footer}"></footer>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

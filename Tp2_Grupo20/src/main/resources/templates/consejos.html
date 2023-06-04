@@ -3,33 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Consejos de Salud</title>
+<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel= "stylesheet" th:href= "@{/css/estilos.css}">
 </head>
 <body>
 <header th:replace="~{layouts/header :: header}"></header>>		
-<fieldset class="centrar">
-	
-	<section class="consejos">
-	<a th:href="@{/consejos/Nuevo_Consejo}">nuevo consejo</a>
-	<h2 class="color">Consejos de Salud</h2>
-	<p>Nota: Solo se permiten cambios al cuerpo, en caso de error eliminar el consejo</p>
-		<table> 
-			<tr>
-				<th>Titulo</th>
-				<th>Consejo</th>
-				<th>Acciones</th>
-			</tr>
-			<tr th:each="consej:${consejos}">
-				<td th:text="${consej.titulo}"></td>
-				<td th:text="${consej.consejo}"></td>
-				<td>
-					<a th:href="@{/consejos/editar/}+${consej.titulo}">Editar Contenido</a>
-					<a th:href="@{/consejos/eliminar/}+${consej.titulo}">Eliminar</a>
-				</td>	
-			</tr> 
-		</table>
-	</section>
-	</fieldset>
+<div class="container-lg fondo mt-5">
+ 	<a class="links" th:href="@{/consejos/Nuevo_Consejo}">Nuevo Consejo</a>
+				<h2 class="color-font">Consejos </h2>
+        <table class="table">
+            <caption>Lista de Consejos</caption>
+            <thead>
+                <tr>
+                    <th id="borde">Titulo</th>
+                    <th id="borde">Consejo</th>
+                    <th id="borde">Editar Datos</th>
+                </tr>
+            </thead>
+            <tbody>
+              
+                  <tr th:each="consej: ${consejos}">
+							<td id="borde" th:text= "${consej.titulo}"></td>
+							<td id="borde" th:text= "${consej.consejo}"></td>
+							<td>
+								<a class="links" th:href ="@{/consejos/editar/}+${consej.titulo}">Editar Contenido</a>
+								<a class="links" th:href ="@{/consejos/eliminar/}+${consej.titulo}">Eliminar</a>
+							</td>
+							
+						
+									
+									</tr>
+                                 
+            </tbody>
+        </table>
+    </div>
+
 	<footer th:replace="~{layouts/footer :: footer}"></footer>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
