@@ -3,35 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
+<div class="container-lg w-80 mt-5 fondo rounded shadow">
+	<div class="row">
+			
+			
+			<div class="col p-5">
+				
+					<h2 class="text-center py-5"> Bienvenido</h2>
+					
+					<form th:action="@{/login/entrar}" th:object="${formLogin}" method="post">
+						<div class="mb-4">
+							<label> Nombre</label>
+							<input type="text"   class="form-control"     th:field="*{usuario}">
+						</div><br>	
+						<div class="mb-4">							
+							<label> Clave</label>
+							<input type="password" th:field="*{clave}">
+						</div><br>
+						<div class="d-grid">
+							<button type="submit" class="btn bnt-primary" >Iniciar Sesion</button>		
+							
+						</div>
+					</form>
+					<p th:if="${error}" th:text="${error}"></p><br><br>
+					<p>Usuario: admin</p>
+					<p>Clave: admin</p>
+			
+			</div>
+	</div>
+</div>
 
-<section class="productos">
-<form th:action="@{/login/entrar}" th:object="${formLogin}" method="post">
 
-	<label> Nombre</label>
-	<input type="text" th:field="*{usuario}">
+
+
+
+
+
+
 	
-	<label> Clave</label>
-	<input type="password" th:field="*{clave}">
-	<input type="submit" value="Ingresar">
-
-
-
-</form>
-
-<p th:if="${error}" th:text="${error}"></p><br><br>
-
-
-<p>Usuario: admin</p>
-<p>Clave: admin</p>
-
-
-</section>
-
 <footer th:replace="~{layouts/footer :: footer}"></footer>>
-	
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
