@@ -3,17 +3,22 @@
 		<head>
 			<meta charset="UTF-8">
 			<title>Inicio</title>
+			<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 			<link rel= "stylesheet" th:href="@{/css/estilos.css}">
 			
 		</head>
 		
 		<body>
-			
+	
+				<nav th:replace="~{layouts/header :: header}"> </nav>	
 				
 				
-				<header th:replace="~{layouts/header :: header}"> </header>	
+							
+				
+				
+			<div class="container-lg fondo">
 				<div class= centrar>
-						<img  th:src="@{/images/imagenindex.jpg}" >
+						<img  th:src="@{/images/imagenindex.jpg}" class="img-fluid"   width="500px" height="315px">
 					
 			
 					<section>
@@ -28,12 +33,11 @@
 						<p>Facebook:CuidamosTusAnimalesG20</p>
 						<p>Instagram:CuidamosTusAnimalesG20</p>
 						<p>Twitter:CuidamosTusAnimalesG20</p>
-						<p>Tik Tok:CuidamosTusAnimalesG20</p>
 					
 		    		</aside>
-	   	 </div>	
-		<footer>
-		<p>Copyright 2023 - Servicio en el cuidado de tus mascotas - Diseñado por Grupo 20 – Jujuy – República Argentina</p>
-		</footer>
+	   			 </div>	
+	   		</div>
+		<footer th:replace="~{layouts/footer :: footer}"></footer>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 		</body>
 	</html>
