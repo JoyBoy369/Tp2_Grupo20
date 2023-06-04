@@ -3,45 +3,43 @@
 	<head>
     	<meta charset="UTF-8">
    		<title>Contactanos</title>
-    <link rel= "stylesheet" th:href="@{/css/estilos.css}">
+   		<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    	<link rel= "stylesheet" th:href="@{/css/estilos.css}">
 	</head>
 	<body>
 		<header th:replace="~{layouts/header :: header}">	
 		
 		</header>
-		<fieldset class="productos">
-		
-			
-			<section class="productos">
-				<a th:href="@{/contacto/nuevo}">Nuevo Contacto</a>
-				<h2>Contacto </h2>
-				
-					<table>
-						<tr>
-							<th> Nombre</th>
-							<th> Correo</th>
-							<th> Ciudad</th>
-							<th> Mensaje</th>
-							<th> Acciones</th>
-						</tr>
-						
-						<tr th:each="contac: ${contacto}">
-							<td th:text= "${contac.nombre}"></td>
-							<td th:text= "${contac.correo}"></td>
-							<td th:text= "${contac.ciudad}"></td>
-							<td th:text= "${contac.mensaje}"></td>
-							<td>
-								<a th:href ="@{/contacto/editar/}+${contac.nombre}">Editar</a>
-								<a th:href ="@{/contacto/eliminar/}+${contac.nombre}">Eliminar</a>
-							</td>
-							
-						
-						
-						</tr>
-					</table>
-						
-			</section>
-		</fieldset>
-		<footer th:replace="~{layouts/footer :: footer}"></footer>>
+		 <div class="container-lg fondo mt-5">
+		 	<a class="links" th:href="@{/sucursales/nuevo}">Nueva Sucursal</a>
+						<h2 class="color-font">Sucursales </h2>
+		        <table class="table">
+		            <caption>Lista de Sucursales Disponibles</caption>
+		            <thead>
+		                <tr>
+		                    <th id="borde">Nombre</th>
+		                    <th id="borde">Correo</th>
+		                    <th id="borde">Ciudad</th>
+		                    <th id="borde">Mensaje</th>
+		                    <th id="borde">Edicion</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		              
+		                  <tr th:each="contac: ${contacto}">
+									<td id="borde" th:text= "${contac.nombre}"></td>
+									<td id="borde" th:text= "${contac.correo}"></td>
+									<td id="borde" th:text= "${contac.ciudad}"></td>
+									<td id="borde" th:text= "${contac.mensaje}"></td>
+									<td>
+										<a class="links" th:href ="@{/contacto/editar/}+${contac.nombre}">Editar</a>
+										<a class="links" th:href ="@{/contacto/eliminar/}+${contac.nombre}">Eliminar</a>
+									</td>
+							</tr>
+		            </tbody>
+		        </table>
+		    </div>
+		<footer th:replace="~{layouts/footer :: footer}"></footer>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 	</body>
 </html>

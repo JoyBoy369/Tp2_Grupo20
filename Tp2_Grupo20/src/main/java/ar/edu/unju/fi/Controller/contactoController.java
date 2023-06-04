@@ -1,7 +1,9 @@
 package ar.edu.unju.fi.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,12 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.listas.ListaContacto;
 import ar.edu.unju.fi.model.Contacto;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/contacto")
 public class contactoController {
 
-	ListaContacto listaContacto = new ListaContacto();
+	@Autowired
+	private ListaContacto listaContacto;
+	@Autowired
+	private Contacto contacto;
 	
 	@GetMapping("/listado")
 	public String getContactosPage(Model model) {
@@ -29,15 +35,20 @@ public class contactoController {
 		public String getNuevaSucursal(Model model) {	
 			boolean editar= false;
 			
-			model.addAttribute("contacto",new Contacto());
+			model.addAttribute("contacto", contacto);
 			model.addAttribute("editar", editar);
 			
 			return "nuevo_contacto";
 		}
 	
 	@PostMapping("/guardar")
-		public ModelAndView getGuardarContacto(@ModelAttribute("contacto")Contacto contacto) {
+		public ModelAndView getGuardarContacto(@Valid @ModelAttribute("contacto")Contacto contacto, BindingResult result) {
 			ModelAndView modelView = new ModelAndView("contacto");
+			if(result.hasErrors()) {
+				modelView.setViewName("nuevo_contacto");
+				modelView.addObject("contacto", contacto);
+				return modelView;
+			}
 			listaContacto.getContacto().add(contacto);
 			modelView.addObject("contacto",listaContacto.getContacto());
 			return modelView;
@@ -60,7 +71,12 @@ public class contactoController {
 	}
 	
 	@PostMapping("/editar")
-	public String editarContacto(@ModelAttribute("contacto")Contacto contacto) {
+	public String editarContacto(@Valid @ModelAttribute("contacto")Contacto contacto, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			boolean editar=true;
+			model.addAttribute("editar", editar);
+			return "nuevo_contacto";
+		}
 		for(Contacto contac: listaContacto.getContacto()) {
 			if(contac.getNombre().equals(contacto.getNombre())) {
 				
