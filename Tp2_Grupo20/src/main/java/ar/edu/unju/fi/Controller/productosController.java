@@ -1,7 +1,9 @@
 package ar.edu.unju.fi.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,14 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.listas.ListaProducto;
 import ar.edu.unju.fi.model.Productos;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/producto")
 
 public class productosController {
-
-	ListaProducto listaProductos = new ListaProducto();
-	
+	@Autowired
+	ListaProducto listaProductos;
+	@Autowired
+	private Productos producto;
 	
 	
 	@GetMapping("/listado")
@@ -31,14 +35,21 @@ public class productosController {
 	@GetMapping("/nuevo")
 	public String getNuevoProductoPage(Model model) {
 		boolean edicion=false;
-		model.addAttribute("producto", new Productos());
+		model.addAttribute("producto", producto);
 		model.addAttribute("edicion",edicion);
 		return "nuevo_producto";
 	}
 	
 	@PostMapping("/guardar")
-	public ModelAndView getGuardarProductoPage(@ModelAttribute("producto")Productos producto) {
+	public ModelAndView getGuardarProductoPage(@Valid @ModelAttribute("producto")Productos producto,BindingResult resultado) {
 	ModelAndView modelView = new ModelAndView("productos");
+	if (resultado.hasErrors()) {
+		modelView.setViewName("nuevo_producto");
+		modelView.addObject("producto",producto);
+		return modelView;
+				
+	}
+		
 	listaProductos.getProductos().add(producto);
 	modelView.addObject("productos",listaProductos.getProductos());
 	return modelView;
@@ -62,7 +73,12 @@ public class productosController {
 	}
 	
 	@PostMapping("/editar")
-	public String editarProducto(@ModelAttribute("producto")Productos producto) {
+	public String editarProducto(@Valid @ModelAttribute("producto")Productos producto, BindingResult resultado,Model model) {
+		if (resultado.hasErrors()) {
+			boolean editar=true;
+			model.addAttribute("editar",editar);
+			return "nuevo_producto";
+		}
 		for(Productos prod : listaProductos.getProductos()) {
 			if(prod.getCodigo()==(producto.getCodigo())) {
 				

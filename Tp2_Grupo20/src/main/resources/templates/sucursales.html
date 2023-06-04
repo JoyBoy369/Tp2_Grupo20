@@ -3,50 +3,55 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Pagina sucursales</title>
+		<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 		<link rel= "stylesheet" th:href="@{/css/estilos.css}">
 	</head>
 	<body>
 		<header th:replace="~{layouts/header :: header}">	
 		
 		</header>
-
-		<fieldset class="productos">
-		
-			
-			<section class="productos">
-				<a th:href="@{/sucursales/nuevo}">Nueva Sucursal</a>
-				<h2>Sucursales </h2>
-				
-					<table>
-						<tr>
-							<th> Nombre</th>
-							<th> Direccion</th>
-							<th> Provincia</th>
-							<th> Fecha abertura</th>
-							<th> Correo</th>
-							<th> Telefono</th>
-							<th> Edicion de Datos</th>
-						</tr>
-						
-						<tr th:each="sucu: ${sucursales}">
-							<td th:text= "${sucu.nombre}"></td>
-							<td th:text= "${sucu.direccion}"></td>
-							<td th:text= "${sucu.provincia}"></td>
-							<td th:text= "${#temporals.format(sucu.fecha,'dd/MM/yyyy')}"></td>
+ <div class="container-lg fondo mt-5">
+ 	<a class="links" th:href="@{/sucursales/nuevo}">Nueva Sucursal</a>
+				<h2 class="color-font">Sucursales </h2>
+        <table class="table">
+            <caption>Lista de Sucursales Disponibles</caption>
+            <thead>
+                <tr>
+                    <th id="borde">Nombre</th>
+                    <th id="borde">Direccion</th>
+                    <th id="borde">Provincia</th>
+                    <th id="borde">Fecha de Apertura</th>
+                    <th>Correo</th>
+                    <th></th>
+                    <th id="borde">Telefono</th>
+                    <th id="borde">Edicion de Datos</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+              
+                  <tr th:each="sucu: ${sucursales}">
+							<td id="borde" th:text= "${sucu.nombre}"></td>
+							<td id="borde" th:text= "${sucu.direccion}"></td>
+							<td id="borde" th:text= "${sucu.provincia}"></td>
+							<td id="borde" th:text= "${#temporals.format(sucu.fecha,'dd/MM/yyyy')}"></td>
 							<td th:text= "${sucu.correo}"></td>
-							<td th:text= "${sucu.telefono}"></td>
+							<td></td>
+							<td  id="borde"th:text= "${sucu.telefono}"></td>
 							<td>
-								<a th:href ="@{/sucursales/editar/}+${sucu.nombre}">Editar</a>
-								<a th:href ="@{/sucursales/eliminar/}+${sucu.nombre}">Eliminar</a>
+								<a class="links" th:href ="@{/sucursales/editar/}+${sucu.nombre}">Editar</a>
+								<a class="links" th:href ="@{/sucursales/eliminar/}+${sucu.nombre}">Eliminar</a>
 							</td>
 							
 						
-						
-						</tr>
-					</table>
-						
-			</section>
-		</fieldset>
-		<footer th:replace="~{layouts/footer :: footer}"></footer>>
+									
+									</tr>
+                                 
+            </tbody>
+        </table>
+    </div>
+		
+		<footer th:replace="~{layouts/footer :: footer}"></footer>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 	</body>
 </html>
