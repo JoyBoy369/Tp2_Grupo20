@@ -11,6 +11,8 @@ import ar.edu.unju.fi.listas.FormLogin;
 @Controller
 
 public class loginController {
+	
+	//Devuelve el formulario de Login al arrancar la pagina//
 	@GetMapping("/")
 	public String getLoginpage(Model model) {
 		
@@ -19,6 +21,7 @@ public class loginController {
 		return "login";
 	}
 	
+	//Valida que los datos sean correctos sino retorna el login//
 	@PostMapping("/login/entrar")
 	public String validarLogin(Model model,FormLogin formLogin) {
 		if(formLogin.getUsuario().equals("admin")&& formLogin.getClave().equals("admin")) {

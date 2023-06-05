@@ -29,12 +29,14 @@ public class serviciosController {
 	@Autowired
 	private Servicios servicio;
 	
+	//Peticion que retorna el listado de los consejos//
 	@GetMapping("/listado")
 		public String getServiciosPage(Model model){
 		model.addAttribute("servicios", listaServicios.getServicio());
 		return "servicio";		
 	}
 	
+	//Retorma un formulario para guardar un nuevo Consejo//
 	@GetMapping("/nuevo")
 		public String getNuevoServicio(Model model) {
 			boolean editar = false;
@@ -44,6 +46,8 @@ public class serviciosController {
 			
 			return "nuevo_servicio";
 	}
+	
+	//Metodo post que se ejecuta despues de hacer un submid en un nuevo consejo//
 	@PostMapping("/guardar")
 		public ModelAndView getGuardarServicio(@Valid @ModelAttribute("servicio")Servicios servicio,BindingResult resultado) {
 			ModelAndView modelView = new ModelAndView("servicio");
@@ -56,7 +60,7 @@ public class serviciosController {
 			modelView.addObject("servicios",listaServicios.getServicio());
 			return modelView;		
 	}
-	
+	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el ID//
 	@GetMapping("/editar/{id}")
 		public String getEditarServicio(Model model,@PathVariable(value="id")String id) {
 		
@@ -74,6 +78,7 @@ public class serviciosController {
 		return "nuevo_servicio";
 	}
 	
+	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
 	@PostMapping("/editar")
 		public String editarservicio(@Valid @ModelAttribute("servicio")Servicios servicio,BindingResult resultado, Model model) {
 		if(resultado.hasErrors()) {
@@ -97,6 +102,7 @@ public class serviciosController {
 		return "redirect:/servicios/listado";
 	}
 	
+	//Permite eliminar completamente un objeto de la tabla//
 	@GetMapping("/eliminar/{id}")
 	public String eliminarServicio(@PathVariable(value="id")String id) {
 	for(Servicios serv: listaServicios.getServicio()) {

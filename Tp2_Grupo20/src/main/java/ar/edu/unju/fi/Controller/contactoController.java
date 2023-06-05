@@ -24,13 +24,14 @@ public class contactoController {
 	@Autowired
 	private Contacto contacto;
 	
+	//Peticion que retorna el listado de los Contactos//
 	@GetMapping("/listado")
 	public String getContactosPage(Model model) {
 		model.addAttribute("contacto", listaContacto.getContacto()); 
 		return "contacto";
 	}
 
-	
+	//Retorma un formulario para guardar un nuevo Contacto//
 	@GetMapping("/nuevo")
 		public String getNuevaSucursal(Model model) {	
 			boolean editar= false;
@@ -40,7 +41,7 @@ public class contactoController {
 			
 			return "nuevo_contacto";
 		}
-	
+	//Metodo post que se ejecuta despues de hacer un submid en un nuevo coctacto//
 	@PostMapping("/guardar")
 		public ModelAndView getGuardarContacto(@Valid @ModelAttribute("contacto")Contacto contacto, BindingResult result) {
 			ModelAndView modelView = new ModelAndView("contacto");
@@ -53,7 +54,7 @@ public class contactoController {
 			modelView.addObject("contacto",listaContacto.getContacto());
 			return modelView;
 		}
-	
+	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el Nombre//
 	@GetMapping("/editar/{nombre}")
 	 public String getEditarContacto(Model model,@PathVariable(value="nombre")String nombre) {
 		Contacto posicionContacto = new Contacto();
@@ -70,6 +71,7 @@ public class contactoController {
 		return "nuevo_contacto";
 	}
 	
+	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
 	@PostMapping("/editar")
 	public String editarContacto(@Valid @ModelAttribute("contacto")Contacto contacto, BindingResult result, Model model) {
 		if(result.hasErrors()) {
@@ -89,6 +91,7 @@ public class contactoController {
 		}
 		return "redirect:/contacto/listado";
 	}
+	//Permite eliminar completamente un objeto de la tabla//
 	@GetMapping("/eliminar/{nombre}")
 		public String eliminarContacto(@PathVariable(value="nombre")String nombre) {
 		for(Contacto contac: listaContacto.getContacto()) {

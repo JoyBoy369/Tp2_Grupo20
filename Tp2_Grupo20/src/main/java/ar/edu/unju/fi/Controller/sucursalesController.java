@@ -25,13 +25,15 @@ public class sucursalesController {
 	@Autowired
 	private Sucursales sucursal;
 	
+	
+	//Peticion que retorna el listado de las Sucursales//
 	@GetMapping("/listado")
 	public String getSucursalesPage(Model model) {
 		model.addAttribute("sucursales", listaSucursales.getSucursal()); 
 		return "sucursales";
 	}
 
-	
+	//Retorma un formulario para guardar una nueva Sucursal//
 	@GetMapping("/nuevo")
 		public String getNuevaSucursal(Model model) {	
 			boolean editar= false;
@@ -41,7 +43,7 @@ public class sucursalesController {
 			
 			return "nueva_sucursal";
 		}
-	
+	//Metodo post que se ejecuta despues de hacer un submid en una nueva sucursal//
 	@PostMapping("/guardar")
 		public ModelAndView getGuardarSucursal(@Valid @ModelAttribute("sucursal")Sucursales sucursal,BindingResult resultado) {
 			ModelAndView modelView = new ModelAndView("sucursales");
@@ -55,7 +57,7 @@ public class sucursalesController {
 			modelView.addObject("sucursales",listaSucursales.getSucursal());
 			return modelView;
 		}
-	
+	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el Titulo//
 	@GetMapping("/editar/{nombre}")
 	 public String getEditarSucursal(Model model,@PathVariable(value="nombre")String nombre) {
 		Sucursales posicionSucursal = new Sucursales();
@@ -72,6 +74,8 @@ public class sucursalesController {
 		return "nueva_sucursal";
 	}
 	
+	
+	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
 	@PostMapping("/editar")
 	public String editarSucursal(@Valid @ModelAttribute("sucursal")Sucursales sucursal,BindingResult resultado,Model model) {
 
@@ -95,6 +99,8 @@ public class sucursalesController {
 		}
 		return "redirect:/sucursales/listado";
 	}
+	
+	//Permite eliminar completamente un objeto de la tabla//
 	@GetMapping("/eliminar/{nombre}")
 		public String eliminarSucursal(@PathVariable(value="nombre")String nombre) {
 		for(Sucursales sucu: listaSucursales.getSucursal()) {
