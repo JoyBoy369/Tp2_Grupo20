@@ -17,16 +17,23 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/consejos")
 public class ConsejoController {
+	
 	@Autowired
 	ListaConsejo listaConsejos;
 	@Autowired
 	private Consejo consejo;
 	
+	
+	
+	//Peticion que retorna el listado de los consejos//
 	@GetMapping("/listado")
 	public String getConsejosPage(Model model) {
 		model.addAttribute("consejos", listaConsejos.getConsejoList());
 		return "consejos";
 	}
+	
+	
+	//Retorma un formulario para guardar un nuevo Consejo//
 	@GetMapping("/Nuevo_Consejo")
 	public String getNuevoConsejo(Model model){
 		boolean editar = false;
@@ -34,6 +41,8 @@ public class ConsejoController {
 		model.addAttribute("editar", editar);
 		return "Nuevo_Consejo";
 	}
+	
+	//Metodo post que se ejecuta despues de hacer un submid en un nuevo consejo//
 	@PostMapping("/Guardar_Consejo")
 	public ModelAndView getGuardarConsejo(@Valid @ModelAttribute("consejo")Consejo consejo, BindingResult resultado){
 		ModelAndView modelView = new ModelAndView("consejos");
@@ -46,6 +55,8 @@ public class ConsejoController {
 		modelView.addObject("consejos", listaConsejos.getConsejoList());
 		return modelView;
 	}
+	
+	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el Titulo//
 	@GetMapping("/editar/{consejo}")
 	public String getEditarConsejo(Model model,@PathVariable(value = "consejo")String consejo) {
 		Consejo posicionConsejo = new Consejo();
@@ -60,6 +71,8 @@ public class ConsejoController {
 		model.addAttribute("editar", editar);
 		return "Nuevo_Consejo";
 	}
+	
+	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
 	@PostMapping("/editar")
 	public String editarConsejo(@Valid @ModelAttribute("consejo")Consejo consejo, BindingResult resultado, Model model){
 		if(resultado.hasErrors()){
@@ -76,6 +89,8 @@ public class ConsejoController {
 			}
 		return "redirect:/consejos/listado";
 	}
+	
+	//Permite eliminar completamente un objeto de la tabla//
 	@GetMapping("/eliminar/{titulo}")
 	public String eliminarConsejo(@PathVariable(value = "titulo")String titulo){
 		for(Consejo consej:listaConsejos.getConsejoList()){

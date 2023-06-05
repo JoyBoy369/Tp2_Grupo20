@@ -24,14 +24,14 @@ public class productosController {
 	@Autowired
 	private Productos producto;
 	
-	
+	//Peticion que retorna el listado de los Productos//
 	@GetMapping("/listado")
 	public String getListaProductoPage(Model model) {
 		model.addAttribute("productos", listaProductos.getProductos());
 		return "productos";
 		
 	}
-	
+	//Retorma un formulario para guardar un nuevo Producto//
 	@GetMapping("/nuevo")
 	public String getNuevoProductoPage(Model model) {
 		boolean edicion=false;
@@ -40,6 +40,7 @@ public class productosController {
 		return "nuevo_producto";
 	}
 	
+	//Metodo post que se ejecuta despues de hacer un submid en un nuevo producto//
 	@PostMapping("/guardar")
 	public ModelAndView getGuardarProductoPage(@Valid @ModelAttribute("producto")Productos producto,BindingResult resultado) {
 	ModelAndView modelView = new ModelAndView("productos");
@@ -56,6 +57,7 @@ public class productosController {
 	
 	}
 	
+	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el Codigo//
 	@GetMapping("/editar/{codigo}")
 	public String getEditarProductoPage(Model model, @PathVariable(value="codigo")String codigo) {
 		Productos productoEncontrado = new Productos();
@@ -72,6 +74,7 @@ public class productosController {
 		return "nuevo_producto";
 	}
 	
+	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
 	@PostMapping("/editar")
 	public String editarProducto(@Valid @ModelAttribute("producto")Productos producto, BindingResult resultado,Model model) {
 		if (resultado.hasErrors()) {
@@ -93,7 +96,7 @@ public class productosController {
 	}
 	
 	
-	
+	//Permite eliminar completamente un objeto de la tabla//
 	@GetMapping("/eliminar/{codigo}")
 	public String eliminarProducto(@PathVariable(value="codigo")String codigo) {
 		Productos productoBuscado = new Productos();
