@@ -3,43 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <title>Formulario</title>
+<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 	<header th:replace="~{layouts/header :: header}"></header>
-		<div class="productos">
+	<div class="container-lg mt-4 desbordar fondo centrar-form">
+		<div class="row">
+
+			<div class="col p-5">
 			<h2 th:text="${editar}?'Editar Paseador':'Registrar Nuevo Paseador'"></h2><br></br>
 			<form  th:action="${editar}?@{/servicios/editar}:@{/servicios/guardar}" th:object="${servicio}" method="post" >
 			
 				<label>ID:</label>
-				<input type="text"  id="mensaje" name="servicio_id" th:field="*{id}"><br><br>
+				<input type="text"  id="mensaje" name="servicio_id" th:field="*{id}">
+				<div class="text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div><br><br>
+				
 				
 				<label>Nombre:</label>
-				<input type="text"  id="mensaje" name="servicio_nombre" th:field="*{nombre}"><br><br>
+				<input type="text"  id="mensaje" name="servicio_nombre" th:field="*{nombre}">
+				<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div><br><br>
+				
 				
 				<p>Horario disponibles:</p>
 				<label>Lunes:</label>
-				<input type="time"  id="mensaje" name="servicio_lunes" th:field="*{lunes}"><br><br>
+				<input type="time"  id="mensaje" name="servicio_lunes" th:field="*{lunes}">
+				<div class="text-danger" th:if="${#fields.hasErrors('lunes')}" th:errors="*{lunes}"></div><br><br>
+				
 				
 				<label>Martes:</label>
-				<input type="time"  id="mensaje" name="servicio_martes" th:field="*{martes}"><br><br>
+				<input type="time"  id="mensaje" name="servicio_martes" th:field="*{martes}">
+				<div class="text-danger" th:if="${#fields.hasErrors('martes')}" th:errors="*{martes}"></div><br><br>
+				
 				
 				<label>Miercoles:</label>
-				<input type="time"  id="mensaje" name="servicio_miercoles" th:field="*{miercoles}"><br><br>
+				<input type="time"  id="mensaje" name="servicio_miercoles" th:field="*{miercoles}">
+				<div class="text-danger" th:if="${#fields.hasErrors('miercoles')}" th:errors="*{miercoles}"></div><br><br>
 				
 				<label>Jueves:</label>
-				<input type="time"  id="mensaje" name="servicio_lunes" th:field="*{jueves}"><br><br>
+				<input type="time"  id="mensaje" name="servicio_lunes" th:field="*{jueves}">
+				<div class="text-danger" th:if="${#fields.hasErrors('jueves')}" th:errors="*{jueves}"></div><br><br>
 				
 				<label>Viernes:</label>
-				<input type="time"  id="mensaje" name="servicio_viernes" th:field="*{viernes}"><br><br>
+				<input type="time"  id="mensaje" name="servicio_viernes" th:field="*{viernes}">
+				<div class="text-danger" th:if="${#fields.hasErrors('viernes')}" th:errors="*{viernes}"></div><br><br>
 				
-				<a> <input type="submit" th:value="${editar}?'Editar': 'Agregar Servicio'"/> </a>
-				
-				
+					<div class="d-grid">
+					 <button type="submit" th:text="${editar}?'Editar': 'Agregar Sucursal'"></button><br><br>
+						<p></p>
+					</div>
 			
 			</form>
 		
-		
+				</div>
+				</div>
 		
 		</div>
 		
@@ -50,5 +67,6 @@
 	
 	
 	<footer th:replace="~{layouts/footer :: footer}"></footer>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
