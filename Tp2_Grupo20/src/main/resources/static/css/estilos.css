@@ -9,6 +9,8 @@
 	html {
 		height: 100%;
 	}	
+	
+	/*Color de la Fuente del Menu*/
 	.indexfont{ 
 		color: black;
 		font-size: 25px;
@@ -29,24 +31,27 @@
 		min-height: 100%;
 		}
 	 
-	 
+	 /*Color de los Links */
 	.nav-link{
 	 		
 		color: white;	
 		transition:0.5s;
 		
 	 }
-	
+	/*Color de los Links al poner el cursor encima*/
 	.navbar a:hover{
 		letter-spacing: 0.25em;
 		color:white;
 		font-weight:800;
 	}
 	
+	/*tamaño del logo del header*/
 	 .logo{
 		height: 65px;
 	 
 	}
+	
+	/*Estilos para el Footer*/
 	 footer{
 	 	margin-top: auto;
 	 	background-color:  #02581d;
@@ -54,7 +59,7 @@
 		color: white;
 		text-align: center;
 	 }
-	
+	/*Fondo Opaco para todas paginas*/
 	.fondo{
 		background-color: rgba(255,255,255,0.4);
 		justify-content: center;
@@ -62,6 +67,7 @@
 		
 	}
 	
+	/*Centra el contenido del contenedor siempe en el medio*/
 	.container-lg aside{
 		display: flex;
 		justify-content: space-between;		
@@ -84,7 +90,7 @@
 		align-items: center;
 		
 	}
-	
+	/* Boton responsivo para los formularios*/
 	.d-grid button,.d-grid button:hover {
 	border-bottom-color:Black;
 	border-top-color:Black;
@@ -94,13 +100,12 @@
    }
    
    .desbordar{
-   
-   
   /* Control de la altura con base en el texto del div*/
 	  height: auto;
 	  word-wrap: break-word;
 	  
    }
+   /*Centra el contenido de los Formularios*/
    .centrar-form{
    		display:flex;
 		flex-direction:column;
@@ -108,6 +113,7 @@
 		align-items: center;
    
    }
+   /*Color de fuente*/
    .color-font{
    	align-content:center;
    	align-items:center;
@@ -115,17 +121,19 @@
    	flex-direction:column;
    	color:Black;
    }   
-   
+   /*Color de los Links en divs*/
    div .links{
    color:black;
    font-size: 20px;
    } 
+   /*Color del Hover de un link*/
    div .links:hover{
    color:white;
    font-size: 20px;
    } 
    
- /*  Desde aqui son Estilos para las tablas de formulario */  
+ 			/*  Desde aqui son Estilos para las tablas de formulario */  
+/*Estilo para tablas*/ 			
 .table {
     width: 100%;
     border: 1px  rgb(0, 0, 0);
@@ -134,7 +142,7 @@
     padding: 0;
     table-layout: fixed;
 }
-
+/*Estilo al mover cursor en la tabla*/
 .table caption {
     font-size: 20px;
     text-transform: uppercase;
@@ -147,7 +155,7 @@
     background-color:  rgba(255,255,255,0.6);
     border: 1px solid rgb(0, 0, 0);
 }
-
+/*Alineacion del texto de una tabla*/
 .table th, .table td {
     font-size: 16px;
     padding: 8px;
@@ -155,6 +163,7 @@
    
 }
 
+/*Alinea los encabezados y estilos*/
 .table thead th{ 
     text-transform: uppercase;
     background-color: #02581d;

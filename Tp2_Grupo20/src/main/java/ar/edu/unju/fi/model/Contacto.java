@@ -1,9 +1,18 @@
 package ar.edu.unju.fi.model;
 
+import org.springframework.stereotype.Component;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+
+@Component
 public class Contacto {
 	
+	@NotEmpty(message="El nombre no puede estar vacio")
 	private String nombre;
+	@Email(message="Ingrese un correo valido")
 	private String correo;
+	@NotEmpty(message="La ciudad no puede estar vacio")
 	private String ciudad;
 	private String mensaje;
 	

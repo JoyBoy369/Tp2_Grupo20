@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel= "stylesheet" th:href="@{/css/estilos.css}">
     <title>Document</title>
 </head>
@@ -11,42 +12,46 @@
 
 <header th:replace="~{layouts/header :: header}"></header>
 
- <section  class=productos>
-    <h2 >Horarios de Paseo</h2>
-    <a th:href="@{/servicios/nuevo}">Nuevo Paseador</a>
-    <table border="1" >
-        <tr>
-          <th>Id</th>
-          <th>Nombre del Paseador</th>
-          <th>Lunes</th>
-          <th>Martes</th>
-          <th>Miércoles</th>
-          <th>Jueves</th>
-          <th>Viernes</th>
-            <th>Edicion</th>
-          
-        </tr>
-        <tr th:each="serv: ${servicios}">
-         
-          <td th:text= "${serv.id}"></td>
-          <td th:text= "${serv.nombre}"></td>
-          <td th:text= "${serv.lunes}"></td>
-          <td th:text= "${serv.martes}"></td>
-          <td th:text= "${serv.miercoles}"></td>
-          <td th:text= "${serv.jueves}"></td>
-          <td th:text= "${serv.viernes}"></td>
-          
-          <td>
-				<a th:href ="@{/servicios/editar/}+${serv.id}">Editar</a>
-				<a th:href ="@{/servicios/eliminar/}+${serv.id}">Eliminar</a>
-				
-		</td>
-         
-        </tr>
-       
-</table>
-</section>
+
+ <div class="container-lg fondo mt-5">
+ 	<a class="links" th:href="@{/servicios/nuevo}">Nueva Paseador</a>
+				<h2 class="color-font">Servicio de Paseos </h2>
+        <table class="table">
+            <caption>Lista de Paseadores Disponibles</caption>
+            <thead>
+                <tr>
+                    <th id="borde">ID</th>
+                    <th id="borde">Nombre del Paseador</th>
+                    <th id="borde">Lunes</th>
+                    <th id="borde">Martes</th>              
+                    <th id="borde">Miercoles</th>
+                    <th id="borde">Jueves</th>
+                    <th id="borde">Jueves</th>
+                    <th id="borde">Edicion</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+              
+                  <tr th:each="serv: ${servicios}">
+							<td id="borde" th:text= "${serv.id}"></td>
+							<td id="borde" th:text= "${serv.nombre}"></td>
+							<td id="borde" th:text= "${serv.lunes}"></td>
+							<td id="borde" th:text= "${serv.martes}"></td>
+							<td id="borde" th:text= "${serv.miercoles}"></td>
+							<td id="borde" th:text= "${serv.jueves}"></td>
+							<td id="borde" th:text= "${serv.viernes}"></td>
+							
+							<td>
+								<a class="links" th:href ="@{/servicios/editar/}+${serv.id}">Editar</a>
+								<a class="links" th:href ="@{/servicios/eliminar/}+${serv.id}">Eliminar</a>
+							</td>
+						</tr>                               
+            </tbody>
+        </table>
+    </div>
 
 	<footer th:replace="~{layouts/footer :: footer}"></footer>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

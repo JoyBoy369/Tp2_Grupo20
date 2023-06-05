@@ -1,15 +1,29 @@
 package ar.edu.unju.fi.model;
 
+import org.springframework.stereotype.Component;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
+@Component
 public class Servicios {
 	
+	@NotEmpty(message = "el ID no puede estar vacio")
 	private String id;
+	
+	@Size(min=5,max=150,message = "Ingrese un nombre valido")
 	private String nombre;
+	
+	
+	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private	String lunes;
+	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String martes;
+	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String miercoles;
+	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String jueves;
+	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String viernes;
 	
 	
