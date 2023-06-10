@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/producto")
 
-public class productosController {
+public class ProductosController {
 	@Autowired
 	ListaProducto listaProductos;
 	@Autowired
