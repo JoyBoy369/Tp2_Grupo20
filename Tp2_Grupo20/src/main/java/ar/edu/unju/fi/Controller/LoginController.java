@@ -10,7 +10,7 @@ import ar.edu.unju.fi.listas.FormLogin;
 
 @Controller
 
-public class loginController {
+public class LoginController {
 	
 	//Devuelve el formulario de Login al arrancar la pagina//
 	@GetMapping("/")
