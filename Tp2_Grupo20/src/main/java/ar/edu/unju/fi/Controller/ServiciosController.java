@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 
 @Controller 
 @RequestMapping("/servicios")
-public class serviciosController {
+public class ServiciosController {
 	
 	
 	@Autowired	
