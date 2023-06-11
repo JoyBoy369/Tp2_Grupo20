@@ -2,51 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximun-scale=1, user-scalable=no">
 		<title>Pagina sucursales</title>
 		<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 		<link rel= "stylesheet" th:href="@{/css/estilos.css}">
 	</head>
 	<body>
-		<header th:replace="~{layouts/header :: header}">	
+		<nav th:replace="~{layouts/header :: header}"> </nav>	
 		
-		</header>
- <div class="container-lg fondo mt-5">
- 	<a class="links" th:href="@{/sucursales/nuevo}">Nueva Sucursal</a>
-				<h2 class="color-font">Sucursales </h2>
-        <table class="table">
-            <caption>Lista de Sucursales Disponibles</caption>
-            <thead>
-                <tr>
-                    <th id="borde">Nombre</th>
-                    <th id="borde">Direccion</th>
-                    <th id="borde">Provincia</th>
-                    <th id="borde">Fecha de Apertura</th>
-                    <th>Correo</th>
-                    <th></th>
-                    <th id="borde">Telefono</th>
-                    <th id="borde">Edicion de Datos</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-              
-                  <tr th:each="sucu: ${sucursales}">
-							<td id="borde" th:text= "${sucu.nombre}"></td>
-							<td id="borde" th:text= "${sucu.direccion}"></td>
-							<td id="borde" th:text= "${sucu.provincia}"></td>
-							<td id="borde" th:text= "${#temporals.format(sucu.fecha,'dd/MM/yyyy')}"></td>
-							<td th:text= "${sucu.correo}"></td>
-							<td></td>
-							<td  id="borde"th:text= "${sucu.telefono}"></td>
-							<td>
-								<a class="links" th:href ="@{/sucursales/editar/}+${sucu.nombre}">Editar</a>
-								<a class="links" th:href ="@{/sucursales/eliminar/}+${sucu.nombre}">Eliminar</a>
-							</td>
-					</tr>
-            </tbody>
-        </table>
-    </div>
-		
+		<div class="container fondo mt-5">
+			<div class="row">
+				<div class="col-xs-4 col-sm-8 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+					<a class="links" th:href="@{/sucursales/nuevo}">Nueva Sucursal</a>
+					<h2>Lista Sucursales</h2>
+					
+				<div class="card mb-3 d-inline-block fondo" style="max-width: 540px;" th:each="sucu: ${sucursales}">
+					  <div class="row g-0">
+					    <div class="col-md-4">
+					      <img th:src="@{/images/gugul3.png}"  class="img-fluid rounded-start" alt="...">
+					      
+					    </div>
+					    <div class="col-md-8">
+					      <div class="card-body">
+					        <h5 class="card-title" th:text= "${sucu.nombre}"></h5>
+					        <p class="card-text" th:text= "${sucu.provincia}"></p>
+					        <p class="card-text" th:text= "${sucu.direccion}"></p>
+					         <p class="card-text" th:text= "${#temporals.format(sucu.fecha,'dd/MM/yyyy')}"></p>
+					          <p class="card-text" th:text= "${sucu.correo}"></p>
+					        <a class="card-text links"  th:href ="@{/sucursales/editar/}+${sucu.nombre}"><small class="text-muted">Editar</small></a>
+					         <a class="card-text links"  th:href ="@{/sucursales/eliminar/}+${sucu.nombre}"><small class="text-muted">Eliminar</small></a>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				
+				
+		</div>
+		</div>	
+		</div> 
 		<footer th:replace="~{layouts/footer :: footer}"></footer>
 		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 	</body>
