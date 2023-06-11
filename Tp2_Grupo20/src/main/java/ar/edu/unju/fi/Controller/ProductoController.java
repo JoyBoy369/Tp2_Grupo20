@@ -13,34 +13,54 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.listas.ListaProducto;
 import ar.edu.unju.fi.model.Productos;
+import ar.edu.unju.fi.service.IProductoService;
 import jakarta.validation.Valid;
 
+/**
+ * Controlador para la gestión de productos.
+ */
 @Controller
 @RequestMapping("/producto")
 
 public class ProductoController {
-	@Autowired
-	ListaProducto listaProductos;
-	@Autowired
-	private Productos producto;
 	
-	//Peticion que retorna el listado de los Productos//
+	@Autowired
+	private IProductoService productoService;
+	
+	@Autowired
+	ListaProducto listaProducto;
+	
+	/**
+	 * Mapeo para obtener la página de listado de productos.
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "productos"
+	 */
 	@GetMapping("/listado")
 	public String getListaProductoPage(Model model) {
-		model.addAttribute("productos", listaProductos.getProductos());
+		model.addAttribute("productos", productoService.getLista());
 		return "productos";
 		
 	}
-	//Retorma un formulario para guardar un nuevo Producto//
+	
+	/**
+	 * Mapeo para obtener la página de creación de un nuevo producto.
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "nuevo_producto"
+	 */
 	@GetMapping("/nuevo")
 	public String getNuevoProductoPage(Model model) {
 		boolean edicion=false;
-		model.addAttribute("producto", producto);
+		model.addAttribute("producto", productoService.getProducto());
 		model.addAttribute("edicion",edicion);
 		return "nuevo_producto";
 	}
 	
-	//Metodo post que se ejecuta despues de hacer un submid en un nuevo producto//
+	/**
+	 * Mapeo para guardar un nuevo producto.
+	 * @param producto el producto a guardar
+	 * @param resultado el resultado de la validación
+	 * @return el objeto ModelAndView de la vista "producto" si no hay errores, o "nuevo_producto" en caso contrario
+	 */
 	@PostMapping("/guardar")
 	public ModelAndView getGuardarProductoPage(@Valid @ModelAttribute("producto")Productos producto,BindingResult resultado) {
 	ModelAndView modelView = new ModelAndView("productos");
@@ -50,31 +70,35 @@ public class ProductoController {
 		return modelView;
 				
 	}
-		
-	listaProductos.getProductos().add(producto);
-	modelView.addObject("productos",listaProductos.getProductos());
+	productoService.guardar(producto);
+	modelView.addObject("productos", productoService.getLista());
 	return modelView;
 	
 	}
 	
-	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el Codigo//
+	/**
+	 * Mapeo para obtener la página de edición de un producto.
+	 * @param model el modelo de la vista
+	 * @param codigo el codigo del producto a editar
+	 * @return el nombre de la vista "nuevo_producto"
+	 */
 	@GetMapping("/editar/{codigo}")
 	public String getEditarProductoPage(Model model, @PathVariable(value="codigo")String codigo) {
-		Productos productoEncontrado = new Productos();
+		Productos productoEncontrado = productoService.getBy(codigo);
 		boolean edicion=true;
-		for(Productos prod : listaProductos.getProductos()) {
-			if(prod.getCodigo()==(Integer.parseInt(codigo))) {
-				productoEncontrado = prod;
-				break;
-			}
-		}
 		model.addAttribute("producto",productoEncontrado);
 		model.addAttribute("edicion",edicion);
 		
 		return "nuevo_producto";
 	}
 	
-	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
+	/**
+	 * Mapeo para guardar los cambios de un producto editado.
+	 * @param producto el producto editado.
+	 * @param resultado el resultado de la validación
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "nuevo_producto" si hay errores, o "redirect:/producto/listado" en caso contrario
+	 */
 	@PostMapping("/editar")
 	public String editarProducto(@Valid @ModelAttribute("producto")Productos producto, BindingResult resultado,Model model) {
 		if (resultado.hasErrors()) {
@@ -82,31 +106,20 @@ public class ProductoController {
 			model.addAttribute("editar",editar);
 			return "nuevo_producto";
 		}
-		for(Productos prod : listaProductos.getProductos()) {
-			if(prod.getCodigo()==(producto.getCodigo())) {
-				
-				prod.setNombre(producto.getNombre());
-				prod.setCategoria(producto.getCategoria());
-				// prod.setCodigo(producto.getCodigo());
-				prod.setPrecio(producto.getPrecio());
-				prod.setDescuento(producto.getDescuento());
-			}
-		}
+		productoService.modificar(producto);
 		return "redirect:/producto/listado";
 	}
 	
 	
-	//Permite eliminar completamente un objeto de la tabla//
+	/**
+	 * Mapeo para eliminar un producto.
+	 * @param nombre el nombre del producto a eliminar.
+	 * @return el nombre de la vista "redirect:/producto/listado"
+	 */
 	@GetMapping("/eliminar/{codigo}")
 	public String eliminarProducto(@PathVariable(value="codigo")String codigo) {
-		Productos productoBuscado = new Productos();
-		for(Productos prod : listaProductos.getProductos()) {
-			if(prod.getCodigo()==Integer.parseInt(codigo)) {
-				productoBuscado=prod;
-				break;				
-			}
-		}
-		listaProductos.getProductos().remove(productoBuscado);
+		Productos productoBuscado = productoService.getBy(codigo);
+		productoService.eliminar(productoBuscado);
 		return "redirect:/producto/listado";
 	}
 	
