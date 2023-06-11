@@ -13,7 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.listas.ListaConsejo;
 import ar.edu.unju.fi.model.Consejo;
+import ar.edu.unju.fi.service.IConsejoService;
 import jakarta.validation.Valid;
+
+/**
+ * Controlador para la gestión de consejos.
+ */
 @Controller
 @RequestMapping("/consejos")
 public class ConsejoController {
@@ -21,28 +26,41 @@ public class ConsejoController {
 	@Autowired
 	ListaConsejo listaConsejos;
 	@Autowired
-	private Consejo consejo;
+	private IConsejoService consejoService;
 	
 	
 	
-	//Peticion que retorna el listado de los consejos//
+	/**
+	 * Mapeo para obtener la página de listado de consejos.
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "consejos"
+	 */
 	@GetMapping("/listado")
 	public String getConsejosPage(Model model) {
-		model.addAttribute("consejos", listaConsejos.getConsejoList());
+		model.addAttribute("consejos", consejoService.getLista());
 		return "consejos";
 	}
 	
 	
-	//Retorma un formulario para guardar un nuevo Consejo//
+	/**
+	 * Mapeo para obtener la página de creación de un nuevo consejo.
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "Nuevo_Consejo"
+	 */
 	@GetMapping("/Nuevo_Consejo")
 	public String getNuevoConsejo(Model model){
 		boolean editar = false;
-		model.addAttribute("consejo", consejo);
+		model.addAttribute("consejo", consejoService.getConsejo());
 		model.addAttribute("editar", editar);
 		return "Nuevo_Consejo";
 	}
 	
-	//Metodo post que se ejecuta despues de hacer un submid en un nuevo consejo//
+	/**
+	 * Mapeo para guardar un nuevo consejo.
+	 * @param el consejo a guardar
+	 * @param resultado el resultado de la validación
+	 * @return el objeto ModelAndView de la vista "consejos" si no hay errores, o "Nuevo_Consejo" en caso contrario
+	 */
 	@PostMapping("/Guardar_Consejo")
 	public ModelAndView getGuardarConsejo(@Valid @ModelAttribute("consejo")Consejo consejo, BindingResult resultado){
 		ModelAndView modelView = new ModelAndView("consejos");
@@ -51,28 +69,33 @@ public class ConsejoController {
 			modelView.addObject("consejo", consejo);
 			return modelView;
 		}
-		listaConsejos.getConsejoList().add(consejo);
-		modelView.addObject("consejos", listaConsejos.getConsejoList());
+		consejoService.guardar(consejo);
+		modelView.addObject("consejos", consejoService.getLista());
 		return modelView;
 	}
 	
-	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el Titulo//
+	/**
+	 * Mapeo para obtener la página de edición de un consejo.
+	 * @param model el modelo de la vista
+	 * @param nombre el nombre del consejo a editar
+	 * @return el nombre de la vista "Nuevo_Consejo"
+	 */
 	@GetMapping("/editar/{consejo}")
 	public String getEditarConsejo(Model model,@PathVariable(value = "consejo")String consejo) {
-		Consejo posicionConsejo = new Consejo();
+		Consejo consejoEncontrado = consejoService.getBy(consejo);
 		boolean editar = true;
-		for(Consejo consej:listaConsejos.getConsejoList()){
-			if(consej.getTitulo().equals(consejo)){
-				posicionConsejo = consej;
-				break;
-			}
-		}
-		model.addAttribute("consejo", posicionConsejo);
+		model.addAttribute("consejo", consejoEncontrado);
 		model.addAttribute("editar", editar);
 		return "Nuevo_Consejo";
 	}
 	
-	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
+	/**
+	 * Mapeo para guardar los cambios de un consejo editado.
+	 * @param consejo el consejo editado
+	 * @param resultado el resultado de la validación
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "Nuevo_Consejo" si hay errores, o "redirect:/sucursales/listado" en caso contrario
+	 */
 	@PostMapping("/editar")
 	public String editarConsejo(@Valid @ModelAttribute("consejo")Consejo consejo, BindingResult resultado, Model model){
 		if(resultado.hasErrors()){
@@ -80,25 +103,19 @@ public class ConsejoController {
 			model.addAttribute("editar", editar);
 			return "Nuevo_Consejo";
 		}
-		for(Consejo consej: listaConsejos.getConsejoList()){
-			if(consej.getTitulo().equals(consejo.getTitulo())) {
-				consej.setTitulo(consejo.getTitulo());
-				consej.setConsejo(consejo.getConsejo());
-				break;
-			}
-			}
+		consejoService.modificar(consejo);
 		return "redirect:/consejos/listado";
 	}
 	
-	//Permite eliminar completamente un objeto de la tabla//
+	/**
+	 * Mapeo para eliminar un consejo.
+	 * @param nombre el nombre del consejo a eliminar
+	 * @return el nombre de la vista "redirect:/consejos/listado"
+	 */
 	@GetMapping("/eliminar/{titulo}")
 	public String eliminarConsejo(@PathVariable(value = "titulo")String titulo){
-		for(Consejo consej:listaConsejos.getConsejoList()){
-			if(consej.getTitulo().equals(titulo)) {
-				listaConsejos.getConsejoList().remove(consej);
-				break;
-			}
-		}
+		Consejo consejoEncontrado = consejoService.getBy(titulo);
+		consejoService.eliminar(consejoEncontrado);
 		return "redirect:/consejos/listado";
 	}
 }
