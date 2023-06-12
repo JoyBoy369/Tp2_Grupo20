@@ -2,16 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximun-scale=1, user-scalable=no">
     <title>NuevoProducto</title>
     <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 	<header th:replace="~{layouts/header :: header}"></header>>		
-		<div class="container-lg mt-4 desbordar fondo centrar-form">
+		<div class="container-lg mt-4 desbordar fondo centrar-form col-xs-4 col-sm-8 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
 		<div class="row">
 		<div class="col p-5">
-		<section class=productos>
+		<section  class="col-xs-4 col-sm-8 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
 				<h3 th:text="${edicion}?'Editar Producto' : 'Nuevo Producto'"></h3><br><br>
 				
 				<form th:action="${edicion}?@{/producto/editar}:@{/producto/guardar}" th:object="${producto}" method="post">

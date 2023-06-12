@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 	<head>
     	<meta charset="UTF-8">
+    	 <meta name="viewport" content="width=device-width, initial-scale=1,maximun-scale=1, user-scalable=no">
    		<title>Contactanos</title>
    		<link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     	<link rel= "stylesheet" th:href="@{/css/estilos.css}">
@@ -10,35 +11,72 @@
 		<header th:replace="~{layouts/header :: header}">	
 		
 		</header>
-		 <div class="container-lg fondo mt-5">
-		 	<a class="links" th:href="@{/sucursales/nuevo}">Nueva Sucursal</a>
-						<h2 class="color-font">Sucursales </h2>
-		        <table class="table">
-		            <caption>Lista de Sucursales Disponibles</caption>
-		            <thead>
-		                <tr>
-		                    <th id="borde">Nombre</th>
-		                    <th id="borde">Correo</th>
-		                    <th id="borde">Ciudad</th>
-		                    <th id="borde">Mensaje</th>
-		                    <th id="borde">Edicion</th>
-		                </tr>
-		            </thead>
-		            <tbody>
-		              
-		                  <tr th:each="contac: ${contacto}">
-									<td id="borde" th:text= "${contac.nombre}"></td>
-									<td id="borde" th:text= "${contac.correo}"></td>
-									<td id="borde" th:text= "${contac.ciudad}"></td>
-									<td id="borde" th:text= "${contac.mensaje}"></td>
-									<td>
-										<a class="links" th:href ="@{/contacto/editar/}+${contac.nombre}">Editar</a>
-										<a class="links" th:href ="@{/contacto/eliminar/}+${contac.nombre}">Eliminar</a>
-									</td>
-							</tr>
-		            </tbody>
-		        </table>
-		    </div>
+		
+		
+		<section class="d-flex justify-content-center align-items-center ">
+        <div class="card shadow col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-5 fondo p-4"> 
+            <div class="mb-4 d-flex justify-content-start align-items-center">
+              
+                <h4>  <i class="bi bi-chat-left-quote"></i>Contactanos</h4>
+               
+                 
+            </div>
+            <div class="mb-1">
+                <form id = "contacto" th:object="${contacto}" th:action="@{/contacto}" method=post>
+                    <div class="mb-4 d-flex justify-content-between"> 
+                        <div>
+                            <label for="nombre"> <i class="bi bi-person-fill"></i> Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" th:field="*{nombre}" placeholder= "Ingrese su Nombre" >
+                           <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                        </div>
+                       
+                        
+                    </div>
+                    <div class="mb-4">
+                        <label for="correo"><i class="bi bi-envelope-fill"></i> Provincia</label>
+                        <select name="categoria" id="mensaje" class="form-control" th:field="*{ciudad}" >
+						 <option value=""> Seleccione una Provincia</option>
+						 <option value="Jujuy"> Jujuy</option>
+						 <option value="Salta"> Chaco</option>
+						 <option value="Buenos Aires"> Buenos Aires</option>
+						 <option value="La Rioja"> La Rioja</option>
+						 <option value="Tucuman"> Tucuman</option>
+						 <option value="Cordoba"> Cordoba</option>
+						
+					</select>
+                        <div class="correo text-danger" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></div>
+                        
+                    </div> 
+                    <div class="mb-4">
+                        <label for="correo"><i class="bi bi-envelope-fill"></i> Correo</label>
+                        <input type="email" class="form-control" name="correo" id="correo" th:field="*{correo}" placeholder= "ej:correo2@mail.com" >
+                        <div class="correo text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+                        
+                    </div> 
+                    <div class="mb-4">
+                        <label for="sexo"><i class="bi bi-gender-ambiguous"></i> Sexo: </label>
+                        <input type="radio" class="form-check-input"  name="sexo"  value="masculino" > Masculino
+                        <input type="radio" class="form-check-input" name="sexo"  value="femenino" > Femenino
+                        <div class="sexo text-danger"></div>
+                    </div>  
+                    <div class="mb-4">
+                        <label for="mensaje"> <i class="bi bi-chat-right-dots-fill" ></i> Mensaje</label>
+                        <textarea name="mensaje" id="mensaje" class="form-control" th:field="*{mensaje}" placeholder="Escriba Aqui su Mensaje" ></textarea>
+                        <div class="mensaje text-danger" th:if="${#fields.hasErrors('mensaje')}" th:errors="*{mensaje}"></div>
+                    </div> 
+                    
+                     <div class="d-grid">
+					 <button type="submit" >Enviar</button><br><br>
+						
+						 <div> <h4 th:if="${datos}" th:text="${datos}"></h4></div> 
+					</div>
+                           
+                </form>
+            </div>
+        </div>
+    </section>
+	
+
 		<footer th:replace="~{layouts/footer :: footer}"></footer>
 		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 	</body>
