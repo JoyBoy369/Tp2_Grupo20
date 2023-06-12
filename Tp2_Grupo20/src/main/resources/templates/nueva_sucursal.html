@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximun-scale=1, user-scalable=no">
 <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 
@@ -22,12 +23,12 @@
 				<form th:action="${editar}?@{/sucursales/editar}:@{/sucursales/guardar}" th:object="${sucursal}" method="post" >
 				
 					<label>Nombre:</label>
-					<input type="text"  id="mensaje" name="sucursal_name" th:field="*{nombre}">
+					<input type="text" th:readonly="${editar}?'readonly'" id="mensaje" name="sucursal_name" th:field="*{nombre}">
 					<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div><br><br>
 					
 					
 					<label>Direccion:</label>
-					<input type="text" name="sucursal_direccion" id="mensaje" th:field="*{direccion}">
+					<input type="text" name="sucursal_direccion" id="mensaje"  th:field="*{direccion}">
 					<div class="text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></div><br><br>
 					
 					<label>Provincia:</label>
@@ -46,7 +47,7 @@
 					
 					
 					<label>Fecha:</label>
-					<input type="date" name="sucursal_fecha" id="mensaje" th:field="*{fecha}">
+					<input type="date"  name="sucursal_fecha" id="mensaje" th:field="*{fecha}">
 					<div class="text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div><br><br>
 					
 					<label>Correo:</label>

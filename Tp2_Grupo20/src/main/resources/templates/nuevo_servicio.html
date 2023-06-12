@@ -2,6 +2,7 @@
 <html  xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
 <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1,maximun-scale=1, user-scalable=no">
 <title>Formulario</title>
 <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel= "stylesheet" th:href="@{/css/estilos.css}">
@@ -16,7 +17,7 @@
 			<form  th:action="${editar}?@{/servicios/editar}:@{/servicios/guardar}" th:object="${servicio}" method="post" >
 			
 				<label>ID:</label>
-				<input type="text"  id="mensaje" name="servicio_id" th:field="*{id}">
+				<input type="text"  id="mensaje" name="servicio_id"  th:readonly="${editar}?'readonly'" th:field="*{id}">
 				<div class="text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div><br><br>
 				
 				

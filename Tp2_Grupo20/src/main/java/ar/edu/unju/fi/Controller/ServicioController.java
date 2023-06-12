@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.Controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,43 +12,55 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.listas.ListaServicio;
 import ar.edu.unju.fi.model.Servicios;
+import ar.edu.unju.fi.service.IServicioService;
 import jakarta.validation.Valid;
 
 
 
-
+/**
+ * Controlador para la gestión de servicios.
+ */
 @Controller 
 @RequestMapping("/servicios")
-public class serviciosController {
-	
-	
-	@Autowired	
-	ListaServicio listaServicios;
+public class ServicioController {
 	
 	@Autowired
-	private Servicios servicio;
+	private IServicioService servicioService;
 	
-	//Peticion que retorna el listado de los consejos//
+	
+	/**
+	 * Mapeo para obtener la página de listado de servicios.
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "servicio"
+	 */
 	@GetMapping("/listado")
 		public String getServiciosPage(Model model){
-		model.addAttribute("servicios", listaServicios.getServicio());
+		model.addAttribute("servicios", servicioService.getListaServicio());
 		return "servicio";		
 	}
 	
-	//Retorma un formulario para guardar un nuevo Consejo//
+	/**
+	 * Mapeo para obtener la página de creación de una nuevo servicio.
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "nuevo_servicio"
+	 */
 	@GetMapping("/nuevo")
 		public String getNuevoServicio(Model model) {
 			boolean editar = false;
 
-			model.addAttribute("servicio",servicio);
+			model.addAttribute("servicio", servicioService.getServicio());
 			model.addAttribute("editar", editar);
 			
 			return "nuevo_servicio";
 	}
 	
-	//Metodo post que se ejecuta despues de hacer un submid en un nuevo consejo//
+	/**
+	 * Mapeo para guardar un nuevo servicio.
+	 * @param servicio el servicio a guardar
+	 * @param resultado el resultado de la validación
+	 * @return el objeto ModelAndView de la vista "servicio" si no hay errores, o "nuevo_servicio" en caso contrario
+	 */
 	@PostMapping("/guardar")
 		public ModelAndView getGuardarServicio(@Valid @ModelAttribute("servicio")Servicios servicio,BindingResult resultado) {
 			ModelAndView modelView = new ModelAndView("servicio");
@@ -56,29 +69,33 @@ public class serviciosController {
 				modelView.addObject("servicio",servicio);
 				return modelView;
 			}
-			listaServicios.getServicio().add(servicio);
-			modelView.addObject("servicios",listaServicios.getServicio());
+			servicioService.guardar(servicio);
+			modelView.addObject("servicios",servicioService.getListaServicio());
 			return modelView;		
 	}
-	//Metodo que permite devolver la posicion y objetos del Array tomando como atributo de busqueda el ID//
+	/**
+	 * Mapeo para obtener la página de edición de un servicio.
+	 * @param model el modelo de la vista
+	 * @param id el id del servicio a editar
+	 * @return el nombre de la vista "nuevo_servicio"
+	 */
 	@GetMapping("/editar/{id}")
 		public String getEditarServicio(Model model,@PathVariable(value="id")String id) {
 		
-		Servicios posicionServicio = new Servicios();
+		Servicios posicionServicio = servicioService.getBy(id);
 		boolean editar =true;
-		for (Servicios serv: listaServicios.getServicio()) {
-			if(serv.getId().equals(id)) {
-				posicionServicio = serv;
-				break;
-				
-			}
-		}
 		model.addAttribute("servicio", posicionServicio);
 		model.addAttribute("editar",editar);
 		return "nuevo_servicio";
 	}
 	
-	//Metodo que se lanza cuando el usuario actualiza los datos de una tabla//
+	/**
+	 * Mapeo para guardar los cambios de un servicio editado.
+	 * @param servicio el servicio editado
+	 * @param resultado el resultado de la validación
+	 * @param model el modelo de la vista
+	 * @return el nombre de la vista "nuevo_servicio" si hay errores, o "redirect:/servicios/listado" en caso contrario
+	 */
 	@PostMapping("/editar")
 		public String editarservicio(@Valid @ModelAttribute("servicio")Servicios servicio,BindingResult resultado, Model model) {
 		if(resultado.hasErrors()) {
@@ -86,31 +103,19 @@ public class serviciosController {
 			model.addAttribute("editar",editar);
 			return "nuevo_servicio";
 		}
-		for(Servicios serv: listaServicios.getServicio()) {
-			if(serv.getId().equals(servicio.getId())) {
-				
-				serv.setNombre(servicio.getNombre());
-				serv.setLunes(servicio.getLunes());
-				serv.setMartes(servicio.getMartes());
-				serv.setMiercoles(servicio.getMiercoles());
-				serv.setJueves(servicio.getJueves());
-				serv.setViernes(servicio.getViernes());
-					
-				break;
-			}
-		}
+		servicioService.modificar(servicio);
 		return "redirect:/servicios/listado";
 	}
 	
-	//Permite eliminar completamente un objeto de la tabla//
+	/**
+	 * Mapeo para eliminar un servicio.
+	 * @param id el id del servicio a eliminar
+	 * @return el id de la vista "redirect:/servicios/listado"
+	 */
 	@GetMapping("/eliminar/{id}")
 	public String eliminarServicio(@PathVariable(value="id")String id) {
-	for(Servicios serv: listaServicios.getServicio()) {
-		if(serv.getId().equals(id)) {
-			listaServicios.getServicio().remove(serv);
-			break;
-		}
-	}
+		Servicios servicioEncontrado = servicioService.getBy(id);
+		servicioService.eliminar(servicioEncontrado);
 		return "redirect:/servicios/listado";
 	}
 }

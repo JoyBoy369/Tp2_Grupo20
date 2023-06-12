@@ -2,53 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximun-scale=1, user-scalable=no">
     <title>Productos</title>
     <link th:rel= "stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel= "stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
-    			<header th:replace="~{layouts/header :: header}"></header>>				
-				<div class="container-lg fondo mt-5">
-				<a class="links" th:href="@{/producto/nuevo}">Nuevo Producto</a>
-    <h1 class="color-font">Productos</h1>
-
-<fieldset class="productos">
-    <section class="productos">
+    			<header th:replace="~{layouts/header :: header}"></header>>		
+    			
+    			<div class="container fondo mt-5">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+					<a class="links" th:href="@{/producto/nuevo}">Nuevo Producto</a>
+					<h2>Lista Productos</h2>
+					
+				<div class="card mb-3 d-inline-block fondo" style="max-width: 540px;" th:each="prod: ${productos}">
+					  <div class="row g-0">
+					    <div class="col-md-4">
+					  
+					      <img th:src="@{/images/productos.PNG}"  class="img-fluid rounded-start" alt="...">
+					     
+					    </div>
+						    <div class="col-md-4">
+						      <div class="card-body">
+					
+						        <h5 class="card-title">Producto:</h5>
+						        <p class="card-text" >Categoria: </p>
+						        <p class="card-text" >Codigo</p>
+						         <p class="card-text" >Precio Bruto:</p>
+						          <p class="card-text" >Descuento</p>
+						           <p class="card-text" >Precio Final</p>   
+						       <a class="card-text links"  th:href ="@{/producto/editar/}+${prod.codigo}"><small class="text-muted">Editar</small></a>
+						         <a class="card-text links"  th:href ="@{/producto/eliminar/}+${prod.codigo}"><small class="text-muted">Eliminar</small></a>
+						      </div>
+						    </div>
+					    
+						     <div class="col-md-4">
+						      <div class="card-body">
+    					
+						        <h5 class="card-title" th:text= "${prod.nombre}"></h5>
+						        <p class="card-text" th:text= "${prod.categoria}"></p>
+						        <p class="card-text" th:text= "${prod.codigo}"></p>
+						         <p class="card-text" th:text= "${prod.precio}"></p>
+						          <p class="card-text" th:text= "${prod.descuento}"></p>
+						           <p class="card-text" th:text= "${prod.precioConDescuento}"></p>          
+						      </div>
+						    </div>
+			    
+					  </div>
+					</div>
+		</div>
+		</div>	
+		</div> 
+    			
     		
-    		<table class="table">
-    		<caption>Lista de Productos Disponibles</caption>
-    		<thead>
-    				<tr>
-    						<th id="borde">Nombre</th>
-    						<th id="borde">Categoria</th>
-    						<th id="borde">Codigo</th>
-    						<th id="borde">Precio</th>
-    						<th id="borde">Descuento</th>
-    						<th id="borde">Precio con Descuento</th>
-    						<th id="borde">Acciones</th>
-    				</tr>
-    		<thead>
-    		<tbody>
-    				<tr th:each="prod: ${productos}">
-    					<td id="borde" th:text="${prod.nombre}"></td>
-    					<td id="borde" th:text="${prod.categoria}"></td>
-    					<td id="borde" th:text="${prod.codigo}"></td>
-    					<td id="borde" th:text="${prod.precio}"></td>
-    					<td id="borde" th:text="${prod.descuento}"></td>
-    					<td id="borde" th:text="${prod.precioConDescuento}"></td>
-    					
-    					<td>
-    						<a class="links" th:href="@{/producto/editar/}+${prod.codigo}">Editar</a>
-    						<a class="links" th:href="@{/producto/eliminar/}+${prod.codigo}">Eliminar</a>
-    					</td>
-    					
-    				</tr>
-    		</tbody>
-    		</table>
-         </section>
-         </fieldset>
-         </div>
-			
+
          <footer th:replace="~{layouts/footer :: footer}"></footer>
          <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>

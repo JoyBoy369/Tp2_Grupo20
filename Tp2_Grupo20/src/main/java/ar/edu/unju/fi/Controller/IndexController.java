@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 
-public class indexController {
+public class IndexController {
 	
 	//Metodo ue devuelve la pagina index luego de ingresar por primera vez//
 	@GetMapping("/inicio")

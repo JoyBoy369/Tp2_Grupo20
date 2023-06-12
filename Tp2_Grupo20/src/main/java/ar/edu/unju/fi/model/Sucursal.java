@@ -12,7 +12,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 @Component
-public class Sucursales {
+public class Sucursal {
 	@NotEmpty(message = "El Nombre no puede estar vacio")
 	private String nombre;
 	
@@ -33,12 +33,12 @@ public class Sucursales {
 	@Size(min=10,max=18,message = "Ingrese un telefono valido Ej:3880934183")
 	private String telefono;
 
-	public Sucursales() {
+	public Sucursal() {
 		
 	}
 
 	
-	public Sucursales(String nombre, String direccion, String provincia, LocalDate fecha, String correo,
+	public Sucursal(String nombre, String direccion, String provincia, LocalDate fecha, String correo,
 			String telefono) {
 		super();
 		this.nombre = nombre;

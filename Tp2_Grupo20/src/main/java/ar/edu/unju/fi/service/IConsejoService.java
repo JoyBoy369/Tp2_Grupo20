@@ -1,0 +1,55 @@
+package ar.edu.unju.fi.service;
+
+import java.util.List;
+
+import ar.edu.unju.fi.model.Consejo;
+import jakarta.validation.Valid;
+
+/**
+ * Esta interfaz define el contrato para gestionar objetos Consejo.
+ */
+public interface IConsejoService {
+	
+	/**
+     * Obtiene una lista de todos los consejos.
+     *
+     * @return la lista de consejos
+     */
+	List <Consejo> getLista();
+	
+	/**
+     * Guarda un nuevo consejo.
+     *
+     * @param consejo el consejo a guardar
+     */
+	void guardar(@Valid Consejo consejo);
+	
+	/**
+     * Obtiene un consejo específico por su nombre.
+     *
+     * @param nombre el nombre del consejo
+     * @return el consejo con el nombre especificado
+     */
+	Consejo getBy(String nombre);
+	
+	/**
+     * Modifica un consejo existente.
+     *
+     * @param consejo el consejo actualizado
+     */
+	void modificar(@Valid Consejo consejo);
+	
+	/**
+     * Elimina un consejo.
+     *
+     * @param consejoEncontrado el consejo a eliminar
+     */
+	void eliminar(Consejo consejoEncontrado);
+	
+	/**
+     * Obtiene el consejo actual.
+     *
+     * @return el consejo actual
+     */
+	Consejo getConsejo();
+}
