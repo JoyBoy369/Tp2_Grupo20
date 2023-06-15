@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unju.fi.entity.Productos;
 import ar.edu.unju.fi.listas.ListaProducto;
-import ar.edu.unju.fi.model.Productos;
 import ar.edu.unju.fi.service.IProductoService;
 import jakarta.validation.Valid;
 

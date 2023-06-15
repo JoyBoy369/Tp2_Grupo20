@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
-import ar.edu.unju.fi.model.Productos;
+import ar.edu.unju.fi.entity.Productos;
 @Component
 public class ListaProducto {
 	private List<Productos> productos;
