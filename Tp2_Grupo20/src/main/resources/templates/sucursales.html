@@ -16,7 +16,7 @@
 					<a class="links" th:href="@{/sucursales/nuevo}">Nueva Sucursal</a>
 					<h2>Lista Sucursales</h2>
 					
-				<div class="card mb-3 d-inline-block fondo" style="max-width: 540px;" th:each="sucu: ${sucursales}">
+				<div class="card mb-3 d-inline-block fondo" style="max-width: 540px;" th:each="sucu: ${sucursal}">
 					  <div class="row g-0">
 					    <div class="col-md-4">
 					      <img th:src="@{/images/gugul3.png}"  class="img-fluid rounded-start" alt="...">
@@ -29,8 +29,8 @@
 					        <p class="card-text" th:text= "${sucu.direccion}"></p>
 					         <p class="card-text" th:text= "${#temporals.format(sucu.fecha,'dd/MM/yyyy')}"></p>
 					          <p class="card-text" th:text= "${sucu.correo}"></p>
-					        <a class="card-text links"  th:href ="@{/sucursales/editar/}+${sucu.nombre}"><small class="text-muted">Editar</small></a>
-					         <a class="card-text links"  th:href ="@{/sucursales/eliminar/}+${sucu.nombre}"><small class="text-muted">Eliminar</small></a>
+					        <a class="card-text links"  th:href ="@{/sucursales/editar/}+${sucu.id}"><small class="text-muted">Editar</small></a>
+					         <a class="card-text links"  th:href ="@{/sucursales/eliminar/}+${sucu.id}"><small class="text-muted">Eliminar</small></a>
 					      </div>
 					    </div>
 					  </div>
