@@ -21,7 +21,15 @@
 			<section>
 			<h2 th:text="${editar}?'Editar Sucursal':'Registrar Nueva Sucursal'"></h2><br></br>
 				<form th:action="${editar}?@{/sucursales/editar}:@{/sucursales/guardar}" th:object="${sucursal}" method="post" >
-				
+					<div hidden>
+					<label>ID:</label>
+					<input type="text" th:readonly="${editar}?'readonly'" id="mensaje" name="sucursal_name" th:field="*{id}">
+					
+					</div>
+					
+					
+					
+					
 					<label>Nombre:</label>
 					<input type="text" th:readonly="${editar}?'readonly'" id="mensaje" name="sucursal_name" th:field="*{nombre}">
 					<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div><br><br>

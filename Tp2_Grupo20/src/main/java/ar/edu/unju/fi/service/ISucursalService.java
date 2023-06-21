@@ -30,7 +30,7 @@ public interface ISucursalService {
      * @param nombre el nombre de la sucursal
      * @return la sucursal con el nombre especificado
      */
-    Sucursal getBy(String nombre);
+    Sucursal getBy(Long id);
 
     /**
      * Modifica una sucursal existente.

@@ -1,6 +1,9 @@
 package ar.edu.unju.fi.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.entity.Sucursal;
-import ar.edu.unju.fi.listas.ListaSucursal;
+
 import ar.edu.unju.fi.service.ISucursalService;
 import jakarta.validation.Valid;
 
@@ -24,10 +27,12 @@ import jakarta.validation.Valid;
 public class SucursalController {
 	
 	@Autowired
+	@Qualifier("sucursalServiceImp")
 	private ISucursalService sucursalService;
 	
 	@Autowired
-	ListaSucursal listaSucursales;
+	Sucursal sucursal;
+	
 	
 	/**
 	 * Mapeo para obtener la página de listado de sucursales.
@@ -36,7 +41,8 @@ public class SucursalController {
 	 */
 	@GetMapping("/listado")
 	public String getSucursalesPage(Model model) {
-		model.addAttribute("sucursales", sucursalService.getLista()); 
+		List<Sucursal> listaSucursales = sucursalService.getLista();
+		model.addAttribute("sucursal", listaSucursales);
 		return "sucursales";
 	}
 
@@ -48,6 +54,7 @@ public class SucursalController {
 	@GetMapping("/nuevo")
 	public String getNuevaSucursal(Model model) {	
 		boolean editar = false;
+		
 		model.addAttribute("sucursal", sucursalService.getSucursal());
 		model.addAttribute("editar", editar);
 		return "nueva_sucursal";
@@ -59,6 +66,8 @@ public class SucursalController {
 	 * @param resultado el resultado de la validación
 	 * @return el objeto ModelAndView de la vista "sucursales" si no hay errores, o "nueva_sucursal" en caso contrario
 	 */
+	
+	
 	@PostMapping("/guardar")
 	public ModelAndView getGuardarSucursal(@Valid @ModelAttribute("sucursal") Sucursal sucursal, BindingResult resultado) {
 		ModelAndView modelView = new ModelAndView("sucursales");
@@ -67,10 +76,19 @@ public class SucursalController {
 			modelView.addObject("sucursal", sucursal);
 			return modelView;
 		}
+		
+		
+		sucursal.setEstado(true);
 		sucursalService.guardar(sucursal);
-		modelView.addObject("sucursales", sucursalService.getLista());
+	
+		modelView.setViewName("sucursales");
+		modelView.addObject("sucursal", sucursalService.getLista());
 		return modelView;
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Mapeo para obtener la página de edición de una sucursal.
@@ -78,15 +96,20 @@ public class SucursalController {
 	 * @param nombre el nombre de la sucursal a editar
 	 * @return el nombre de la vista "nueva_sucursal"
 	 */
-	@GetMapping("/editar/{nombre}")
-	public String getEditarSucursal(Model model, @PathVariable(value = "nombre") String nombre) {
-		Sucursal sucursalEncontrada = sucursalService.getBy(nombre);
-		boolean editar = true;
-		model.addAttribute("sucursal", sucursalEncontrada);
-		model.addAttribute("editar", editar);
-		return "nueva_sucursal";
-	}
 	
+	
+	
+	@GetMapping("/editar/{id}")
+	public ModelAndView getEditarSucursal(Model model, @PathVariable(value = "id") Long id) {
+		
+		ModelAndView modelView = new ModelAndView("nueva_sucursal");
+		
+		Sucursal sucursalEncontrada = sucursalService.getBy(id);
+		boolean editar = true;
+		modelView.addObject("sucursal", sucursalEncontrada);
+		modelView.addObject("editar", editar);
+		return modelView;
+	}
 	/**
 	 * Mapeo para guardar los cambios de una sucursal editada.
 	 * @param sucursal la sucursal editada
@@ -101,6 +124,7 @@ public class SucursalController {
 			model.addAttribute("editar", editar);
 			return "nueva_sucursal";
 		}
+		
 		sucursalService.modificar(sucursal);
 		return "redirect:/sucursales/listado";
 	}
@@ -110,9 +134,9 @@ public class SucursalController {
 	 * @param nombre el nombre de la sucursal a eliminar
 	 * @return el nombre de la vista "redirect:/sucursales/listado"
 	 */
-	@GetMapping("/eliminar/{nombre}")
-	public String eliminarSucursal(@PathVariable(value = "nombre") String nombre) {
-		Sucursal sucursalEncontrada = sucursalService.getBy(nombre);
+	@GetMapping("/eliminar/{id}")
+	public String eliminarSucursal(@PathVariable(value = "id") Long id) {
+		Sucursal sucursalEncontrada = sucursalService.getBy(id);
 		sucursalService.eliminar(sucursalEncontrada);
 		return "redirect:/sucursales/listado";
 	}
