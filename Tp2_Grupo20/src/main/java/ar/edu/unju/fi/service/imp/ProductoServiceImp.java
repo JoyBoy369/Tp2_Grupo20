@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unju.fi.entity.Productos;
+import ar.edu.unju.fi.entity.Producto;
 import ar.edu.unju.fi.listas.ListaProducto;
+import ar.edu.unju.fi.repository.IProductoRepository;
 import ar.edu.unju.fi.service.IProductoService;
 import jakarta.validation.Valid;
 
@@ -14,13 +15,16 @@ import jakarta.validation.Valid;
  * Implementación de la interfaz IProductoService.
  * Maneja las operaciones de gestión de productos.
  */
-@Service
+@Service("productoServiceImp")
 public class ProductoServiceImp implements IProductoService {
+	
+	@Autowired
+	private IProductoRepository productoRepository;
 	
 	@Autowired
 	ListaProducto listaProductos;
 	@Autowired
-	private Productos producto;
+	private Producto producto;
 	
 	 /**
      * Obtiene una lista de todos los productos.
@@ -28,8 +32,8 @@ public class ProductoServiceImp implements IProductoService {
      * @return la lista de productos
      */
 	@Override
-	public List<Productos> getLista() {
-		return listaProductos.getProductos();
+	public List<Producto> getLista() {
+		return productoRepository.findByEstado(true);
 	}
 	
     /**
@@ -38,7 +42,7 @@ public class ProductoServiceImp implements IProductoService {
      * @return el producto actual
      */
 	@Override
-	public Productos getProducto() {
+	public Producto getProducto() {
 		return producto;
 	}
 	
@@ -48,8 +52,8 @@ public class ProductoServiceImp implements IProductoService {
      * @param producto el producto a guardar
      */
 	@Override
-	public void guardar(@Valid Productos producto) {
-		listaProductos.getProductos().add(producto);
+	public void guardar(@Valid Producto producto) {
+		productoRepository.save(producto);
 		
 	}
 	
@@ -59,16 +63,10 @@ public class ProductoServiceImp implements IProductoService {
      * @param producto el producto actualizado.
      */
 	@Override
-	public void modificar(@Valid Productos producto) {
-		for(Productos prod : listaProductos.getProductos()) {
-			if(prod.getCodigo()==(producto.getCodigo())) {
-				
-				prod.setNombre(producto.getNombre());
-				prod.setCategoria(producto.getCategoria());
-				prod.setPrecio(producto.getPrecio());
-				prod.setDescuento(producto.getDescuento());
-			}
-		}
+	public void modificar(@Valid Producto producto) {
+		producto.setEstado(true);
+		productoRepository.save(producto);
+		
 	}
 	
     /**
@@ -77,8 +75,10 @@ public class ProductoServiceImp implements IProductoService {
      * @param productoEncontrado el producto a eliminar.
      */
 	@Override
-	public void eliminar(Productos productoEncontrado) {
-		listaProductos.getProductos().remove(producto);
+	public void eliminar(Producto productoEncontrado) {
+		productoEncontrado.setEstado(false);
+		productoRepository.save(productoEncontrado);
+		
 	}
 	
     /**
@@ -88,15 +88,10 @@ public class ProductoServiceImp implements IProductoService {
      * @return el producto con el codigo especificado.
      */
 	@Override
-	public Productos getBy(String codigo) {
-		Productos productoEncontrado = null;
-		for(Productos prod : listaProductos.getProductos()) {
-			if(prod.getCodigo()==(Integer.parseInt(codigo))) {
-				productoEncontrado = prod;
-				break;
-			}
-		}
-		return productoEncontrado;
+	public Producto getBy(Long id) {
+		
+		
+		return productoRepository.findById(id).get();
 	}
 	
 	

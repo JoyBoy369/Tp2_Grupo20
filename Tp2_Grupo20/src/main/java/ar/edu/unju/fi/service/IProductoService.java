@@ -2,11 +2,11 @@ package ar.edu.unju.fi.service;
 
 import java.util.List;
 
-import ar.edu.unju.fi.entity.Productos;
+import ar.edu.unju.fi.entity.Producto;
 import jakarta.validation.Valid;
 
 /**
- * Esta interfaz define el contrato para gestionar objetos Productos.
+ * Esta interfaz define el contrato para gestionar objetos Producto.
  */
 public interface IProductoService {
 	
@@ -15,7 +15,7 @@ public interface IProductoService {
      *
      * @return la lista de productos
      */
-	List<Productos> getLista();
+	List<Producto> getLista();
 	
 
     /**
@@ -23,28 +23,28 @@ public interface IProductoService {
      *
      * @return el producto actual
      */
-	Productos getProducto();
+	Producto getProducto();
 	
     /**
      * Guarda una nuevo producto.
      *
      * @param producto el producto a guardar
      */
-	void guardar(@Valid Productos producto);
+	void guardar(@Valid Producto producto);
 	
     /**
      * Modifica un producto existente.
      *
      * @param producto el producto actualizado.
      */
-	void modificar(@Valid Productos producto);
+	void modificar(@Valid Producto producto);
 	
     /**
      * Elimina un producto.
      *
      * @param productoEncontrado el producto a eliminar.
      */
-	void eliminar(Productos productoEncontrado);
+	void eliminar(Producto productoEncontrado);
 	
     /**
      * Obtiene un producto específico por su codigo.
@@ -52,6 +52,6 @@ public interface IProductoService {
      * @param codigo el codigo del producto.
      * @return el producto con el codigo especificado.
      */
-	Productos getBy(String codigo);
+	Producto getBy(Long id);
 	
 }
