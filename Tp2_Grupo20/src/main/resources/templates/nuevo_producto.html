@@ -16,7 +16,7 @@
 				<h3 th:text="${edicion}?'Editar Producto' : 'Nuevo Producto'"></h3><br><br>
 				
 				<form th:action="${edicion}?@{/producto/editar}:@{/producto/guardar}" th:object="${producto}" method="post">
-				
+					<div hidden ><input type="text" id="nombre" name="producto_nombre"	th:field="*{id}"></div>
 					<label for="nombre">Nombre</label>
 					<input type="text" id="nombre" name="producto_nombre"	th:field="*{nombre}"><br><br>
 					<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div><br><br>
@@ -48,7 +48,7 @@
 					<div class="text-danger" th:if="${#fields.hasErrors('descuento')}" th:errors="*{descuento}"></div><br><br>
 					
 					<div class="d-grid">
-                     <button type="submit" th:text="${edcion}?'Editar': 'Agregar Sucursal'"></button><br><br>
+                     <button type="submit" th:text="${edcion}?'Editar': 'Agregar Producto'"></button><br><br>
                         <p></p>
                     </div>
 					

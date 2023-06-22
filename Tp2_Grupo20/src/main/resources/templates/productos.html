@@ -16,7 +16,7 @@
 					<a class="links" th:href="@{/producto/nuevo}">Nuevo Producto</a>
 					<h2>Lista Productos</h2>
 					
-				<div class="card mb-3 d-inline-block fondo" style="max-width: 540px;" th:each="prod: ${productos}">
+				<div class="card mb-3 d-inline-block fondo" style="max-width: 540px;" th:each="prod: ${producto}">
 					  <div class="row g-0">
 					    <div class="col-md-4">
 					  
@@ -32,8 +32,8 @@
 						         <p class="card-text" >Precio Bruto:</p>
 						          <p class="card-text" >Descuento</p>
 						           <p class="card-text" >Precio Final</p>   
-						       <a class="card-text links"  th:href ="@{/producto/editar/}+${prod.codigo}"><small class="text-muted">Editar</small></a>
-						         <a class="card-text links"  th:href ="@{/producto/eliminar/}+${prod.codigo}"><small class="text-muted">Eliminar</small></a>
+						       <a class="card-text links"  th:href ="@{/producto/editar/}+${prod.id}"><small class="text-muted">Editar</small></a>
+						         <a class="card-text links"  th:href ="@{/producto/eliminar/}+${prod.id}"><small class="text-muted">Eliminar</small></a>
 						      </div>
 						    </div>
 					    
