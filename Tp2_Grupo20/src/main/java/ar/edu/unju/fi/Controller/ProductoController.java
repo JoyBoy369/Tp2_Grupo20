@@ -1,6 +1,9 @@
 package ar.edu.unju.fi.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,8 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.listas.ListaProducto;
-import ar.edu.unju.fi.model.Productos;
+import ar.edu.unju.fi.entity.Producto;
 import ar.edu.unju.fi.service.IProductoService;
 import jakarta.validation.Valid;
 
@@ -23,12 +25,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/producto")
 
 public class ProductoController {
-	
 	@Autowired
+	@Qualifier("productoServiceImp")
 	private IProductoService productoService;
 	
 	@Autowired
-	ListaProducto listaProducto;
+	Producto producto;
+	
 	
 	/**
 	 * Mapeo para obtener la página de listado de productos.
@@ -37,7 +40,8 @@ public class ProductoController {
 	 */
 	@GetMapping("/listado")
 	public String getListaProductoPage(Model model) {
-		model.addAttribute("productos", productoService.getLista());
+		List<Producto> listaProductos= productoService.getLista();
+		model.addAttribute("producto",listaProductos);
 		return "productos";
 		
 	}
@@ -62,7 +66,7 @@ public class ProductoController {
 	 * @return el objeto ModelAndView de la vista "producto" si no hay errores, o "nuevo_producto" en caso contrario
 	 */
 	@PostMapping("/guardar")
-	public ModelAndView getGuardarProductoPage(@Valid @ModelAttribute("producto")Productos producto,BindingResult resultado) {
+	public ModelAndView getGuardarProductoPage(@Valid @ModelAttribute("producto")Producto producto,BindingResult resultado) {
 	ModelAndView modelView = new ModelAndView("productos");
 	if (resultado.hasErrors()) {
 		modelView.setViewName("nuevo_producto");
@@ -70,8 +74,11 @@ public class ProductoController {
 		return modelView;
 				
 	}
+	producto.setEstado(true);
 	productoService.guardar(producto);
-	modelView.addObject("productos", productoService.getLista());
+	modelView.setViewName("productos");
+	modelView.addObject("producto", productoService.getLista());
+	
 	return modelView;
 	
 	}
@@ -82,14 +89,15 @@ public class ProductoController {
 	 * @param codigo el codigo del producto a editar
 	 * @return el nombre de la vista "nuevo_producto"
 	 */
-	@GetMapping("/editar/{codigo}")
-	public String getEditarProductoPage(Model model, @PathVariable(value="codigo")String codigo) {
-		Productos productoEncontrado = productoService.getBy(codigo);
-		boolean edicion=true;
-		model.addAttribute("producto",productoEncontrado);
-		model.addAttribute("edicion",edicion);
+	@GetMapping("/editar/{id}")
+	public ModelAndView getEditarProductoPage(Model model, @PathVariable(value="id")Long id) {
+		ModelAndView modelView= new ModelAndView("nuevo_producto");
+	    Producto productoEncontrado = productoService.getBy(id);
+	    boolean edicion=true;
+		modelView.addObject("producto",productoEncontrado);
+		modelView.addObject("edicion",edicion);
+		return modelView;
 		
-		return "nuevo_producto";
 	}
 	
 	/**
@@ -100,7 +108,7 @@ public class ProductoController {
 	 * @return el nombre de la vista "nuevo_producto" si hay errores, o "redirect:/producto/listado" en caso contrario
 	 */
 	@PostMapping("/editar")
-	public String editarProducto(@Valid @ModelAttribute("producto")Productos producto, BindingResult resultado,Model model) {
+	public String editarProducto(@Valid @ModelAttribute("producto")Producto producto, BindingResult resultado,Model model) {
 		if (resultado.hasErrors()) {
 			boolean editar=true;
 			model.addAttribute("editar",editar);
@@ -116,9 +124,9 @@ public class ProductoController {
 	 * @param nombre el nombre del producto a eliminar.
 	 * @return el nombre de la vista "redirect:/producto/listado"
 	 */
-	@GetMapping("/eliminar/{codigo}")
-	public String eliminarProducto(@PathVariable(value="codigo")String codigo) {
-		Productos productoBuscado = productoService.getBy(codigo);
+	@GetMapping("/eliminar/{id}")
+	public String eliminarProducto(@PathVariable(value="id")Long id) {
+		Producto productoBuscado = productoService.getBy(id);
 		productoService.eliminar(productoBuscado);
 		return "redirect:/producto/listado";
 	}

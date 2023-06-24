@@ -2,7 +2,7 @@ package ar.edu.unju.fi.service;
 
 import java.util.List;
 
-import ar.edu.unju.fi.model.Servicios;
+import ar.edu.unju.fi.entity.Servicio;
 import jakarta.validation.Valid;
 
 /**
@@ -15,21 +15,21 @@ public interface IServicioService {
      *
      * @return la lista de servicios.
      */
-	List<Servicios> getListaServicio();
+	List<Servicio> getListaServicio();
 	
     /**
      * Obtiene el servicio actual.
      *
      * @return el servicio actual.
      */
-	Servicios getServicio();
+	Servicio getServicio();
 	
     /**
      * Guarda una nuevo servicio.
      *
      * @param servicios el servicio a guardar
      */
-	void guardar (@Valid Servicios servicio);
+	void guardar (@Valid Servicio servicio);
 	
 
     /**
@@ -38,19 +38,19 @@ public interface IServicioService {
      * @param id el id del servicio
      * @return el servicio con el id especificado
      */
-	Servicios getBy(String id);
+	Servicio getBy(Long id);
 	
     /**
      * Modifica un servicio existente.
      *
      * @param sucursal servicio el servicio actualizado.
      */
-	void modificar(@Valid Servicios servicio);
+	void modificar(@Valid Servicio servicio);
 	
 	   /**
      * Elimina un servicio.
      *
      * @param servicioEncontrado el servicio a eliminar.
      */
-	void eliminar(Servicios servicioEncontrado);
+	void eliminar(Servicio servicioEncontrado);
 }

@@ -2,7 +2,7 @@ package ar.edu.unju.fi.service;
 
 import java.util.List;
 
-import ar.edu.unju.fi.model.Sucursal;
+import ar.edu.unju.fi.entity.Sucursal;
 import jakarta.validation.Valid;
 
 /**
@@ -30,7 +30,7 @@ public interface ISucursalService {
      * @param nombre el nombre de la sucursal
      * @return la sucursal con el nombre especificado
      */
-    Sucursal getBy(String nombre);
+    Sucursal getBy(Long id);
 
     /**
      * Modifica una sucursal existente.
