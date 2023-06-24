@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.entity.Servicios;
+import ar.edu.unju.fi.entity.Servicio;
 import ar.edu.unju.fi.service.IServicioService;
 import jakarta.validation.Valid;
 
@@ -62,7 +62,7 @@ public class ServicioController {
 	 * @return el objeto ModelAndView de la vista "servicio" si no hay errores, o "nuevo_servicio" en caso contrario
 	 */
 	@PostMapping("/guardar")
-		public ModelAndView getGuardarServicio(@Valid @ModelAttribute("servicio")Servicios servicio,BindingResult resultado) {
+		public ModelAndView getGuardarServicio(@Valid @ModelAttribute("servicio")Servicio servicio,BindingResult resultado) {
 			ModelAndView modelView = new ModelAndView("servicio");
 			if(resultado.hasErrors()) {
 				modelView.setViewName("nuevo_servicio");
@@ -80,9 +80,9 @@ public class ServicioController {
 	 * @return el nombre de la vista "nuevo_servicio"
 	 */
 	@GetMapping("/editar/{id}")
-		public String getEditarServicio(Model model,@PathVariable(value="id")String id) {
+		public String getEditarServicio(Model model,@PathVariable(value="id")Long id) {
 		
-		Servicios posicionServicio = servicioService.getBy(id);
+		Servicio posicionServicio = servicioService.getBy(id);
 		boolean editar =true;
 		model.addAttribute("servicio", posicionServicio);
 		model.addAttribute("editar",editar);
@@ -97,7 +97,7 @@ public class ServicioController {
 	 * @return el nombre de la vista "nuevo_servicio" si hay errores, o "redirect:/servicios/listado" en caso contrario
 	 */
 	@PostMapping("/editar")
-		public String editarservicio(@Valid @ModelAttribute("servicio")Servicios servicio,BindingResult resultado, Model model) {
+		public String editarservicio(@Valid @ModelAttribute("servicio")Servicio servicio,BindingResult resultado, Model model) {
 		if(resultado.hasErrors()) {
 			boolean editar = true;
 			model.addAttribute("editar",editar);
@@ -113,8 +113,8 @@ public class ServicioController {
 	 * @return el id de la vista "redirect:/servicios/listado"
 	 */
 	@GetMapping("/eliminar/{id}")
-	public String eliminarServicio(@PathVariable(value="id")String id) {
-		Servicios servicioEncontrado = servicioService.getBy(id);
+	public String eliminarServicio(@PathVariable(value="id")Long id) {
+		Servicio servicioEncontrado = servicioService.getBy(id);
 		servicioService.eliminar(servicioEncontrado);
 		return "redirect:/servicios/listado";
 	}

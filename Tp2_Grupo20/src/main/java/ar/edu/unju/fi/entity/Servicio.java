@@ -2,45 +2,59 @@ package ar.edu.unju.fi.entity;
 
 import org.springframework.stereotype.Component;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
 @Component
-public class Servicios {
+@Entity
+@Table(name="servicios")
+public class Servicio {
 	
-	@NotEmpty(message = "el ID no puede estar vacio")
-	private String id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="serv_id")
+	private Long id;
 	
+	@Column(name="serv_nombre")
 	@Size(min=5,max=150,message = "Ingrese un nombre valido")
 	private String nombre;
 	
-	
+	@Column(name="serv_lunes")
 	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private	String lunes;
+	
+	@Column(name="serv_martes")
 	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String martes;
+	
+	@Column(name="serv_miercoles")
 	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String miercoles;
+	
+	@Column(name="serv_jueves")
 	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String jueves;
+	
+	@Column(name="serv_viernes")
 	@Size(min=0,max=5,message="Ingrese una hora valida")
 	private String viernes;
 	
+	@Column(name="serv_estado")
+	private boolean estado;
 	
+
+
+	public Servicio() {
+		
+	}
 	
-
-	public String getId() {
-		return id;
-	}
-
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-
-	public Servicios(String id, String nombre, String lunes, String martes, String miercoles, String jueves,
-			String viernes) {
+	public Servicio(Long id, String nombre, String lunes, String martes, String miercoles, String jueves,
+			String viernes,boolean estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -49,8 +63,15 @@ public class Servicios {
 		this.miercoles = miercoles;
 		this.jueves = jueves;
 		this.viernes = viernes;
+		this.estado = estado;
 	}
 
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -110,11 +131,12 @@ public class Servicios {
 	public void setViernes(String viernes) {
 		this.viernes = viernes;
 	}
-
-
-	public Servicios() {
-		
+	
+	public boolean isEstado() {
+		return estado;
 	}
-
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 
 }
