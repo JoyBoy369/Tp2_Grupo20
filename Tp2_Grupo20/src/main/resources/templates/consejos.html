@@ -13,7 +13,7 @@
 <div class="container fondo mt-5">
 			<div class="row">
 				<div class="col-xs-4 col-sm-8 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-					<a class="links" th:href="@{/consejos/Nuevo_Consejo}">Nuevo Consejo</a>
+					<a class="links" th:href="@{/consejos/nuevo_consejo}">Nuevo Consejo</a>
 					<h2>Algunos consejos de Salud</h2>
 					
 				<div class="card mb-3 d-inline-block fondo" style="max-width: 840px;" th:each="consej: ${consejos}">
@@ -25,11 +25,11 @@
 					    <div class="col-md-8">
 					      <div class="card-body">
 					        <h5 class="card-title" th:text= "${consej.titulo}"></h5>
-					        <p class="card-text" th:text= "${consej.consejo}"></p>
+					        <p class="card-text" th:text= "${consej.esconsejo}"></p>
 					        
 					         
-					        <a class="card-text links"  th:href ="@{/consejos/editar/}+${consej.titulo}"><small class="text-muted">Editar</small></a>
-					         <a class="card-text links" th:href ="@{/consejos/eliminar/}+${consej.titulo}"><small class="text-muted">Eliminar</small></a>
+					        <a class="card-text links"  th:href ="@{/consejos/editar/}+${consej.id}"><small class="text-muted">Editar</small></a>
+					         <a class="card-text links" th:href ="@{/consejos/eliminar/}+${consej.id}"><small class="text-muted">Eliminar</small></a>
 					      </div>
 					    </div>
 					  </div>

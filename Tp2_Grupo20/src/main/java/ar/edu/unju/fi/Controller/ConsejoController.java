@@ -1,6 +1,9 @@
 package ar.edu.unju.fi.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.entity.Consejo;
-import ar.edu.unju.fi.listas.ListaConsejo;
+
 import ar.edu.unju.fi.service.IConsejoService;
 import jakarta.validation.Valid;
 
@@ -24,8 +27,10 @@ import jakarta.validation.Valid;
 public class ConsejoController {
 	
 	@Autowired
-	ListaConsejo listaConsejos;
+	Consejo consejo;
+	
 	@Autowired
+	@Qualifier("consejoServiceImp")
 	private IConsejoService consejoService;
 	
 	
@@ -37,7 +42,8 @@ public class ConsejoController {
 	 */
 	@GetMapping("/listado")
 	public String getConsejosPage(Model model) {
-		model.addAttribute("consejos", consejoService.getLista());
+		List<Consejo> listaConsejos = consejoService.getLista();
+		model.addAttribute("consejos", listaConsejos);
 		return "consejos";
 	}
 	
@@ -47,12 +53,12 @@ public class ConsejoController {
 	 * @param model el modelo de la vista
 	 * @return el nombre de la vista "Nuevo_Consejo"
 	 */
-	@GetMapping("/Nuevo_Consejo")
+	@GetMapping("/nuevo_consejo")
 	public String getNuevoConsejo(Model model){
 		boolean editar = false;
 		model.addAttribute("consejo", consejoService.getConsejo());
 		model.addAttribute("editar", editar);
-		return "Nuevo_Consejo";
+		return "nuevo_consejo";
 	}
 	
 	/**
@@ -61,15 +67,17 @@ public class ConsejoController {
 	 * @param resultado el resultado de la validación
 	 * @return el objeto ModelAndView de la vista "consejos" si no hay errores, o "Nuevo_Consejo" en caso contrario
 	 */
-	@PostMapping("/Guardar_Consejo")
+	@PostMapping("/guardar_consejo")
 	public ModelAndView getGuardarConsejo(@Valid @ModelAttribute("consejo")Consejo consejo, BindingResult resultado){
 		ModelAndView modelView = new ModelAndView("consejos");
 		if(resultado.hasErrors()) {
-			modelView.setViewName("Nuevo_Consejo");
+			modelView.setViewName("nuevo_consejo");
 			modelView.addObject("consejo", consejo);
 			return modelView;
 		}
+		consejo.setEstado(true);
 		consejoService.guardar(consejo);
+		modelView.setViewName("consejos");
 		modelView.addObject("consejos", consejoService.getLista());
 		return modelView;
 	}
@@ -80,13 +88,17 @@ public class ConsejoController {
 	 * @param nombre el nombre del consejo a editar
 	 * @return el nombre de la vista "Nuevo_Consejo"
 	 */
-	@GetMapping("/editar/{consejo}")
-	public String getEditarConsejo(Model model,@PathVariable(value = "consejo")String consejo) {
-		Consejo consejoEncontrado = consejoService.getBy(consejo);
+	@GetMapping("/editar/{id}")
+	public ModelAndView getEditarConsejo(Model model,@PathVariable(value = "id")Long id) {
+		
+		ModelAndView modelView = new ModelAndView("nuevo_consejo");
+		
+		Consejo consejoEncontrado = consejoService.getBy(id);
 		boolean editar = true;
-		model.addAttribute("consejo", consejoEncontrado);
-		model.addAttribute("editar", editar);
-		return "Nuevo_Consejo";
+		
+		modelView.addObject("consejo", consejoEncontrado);
+		modelView.addObject("editar", editar);
+		return modelView;
 	}
 	
 	/**
@@ -101,7 +113,7 @@ public class ConsejoController {
 		if(resultado.hasErrors()){
 			boolean editar = true;
 			model.addAttribute("editar", editar);
-			return "Nuevo_Consejo";
+			return "nuevo_consejo";
 		}
 		consejoService.modificar(consejo);
 		return "redirect:/consejos/listado";
@@ -112,9 +124,9 @@ public class ConsejoController {
 	 * @param nombre el nombre del consejo a eliminar
 	 * @return el nombre de la vista "redirect:/consejos/listado"
 	 */
-	@GetMapping("/eliminar/{titulo}")
-	public String eliminarConsejo(@PathVariable(value = "titulo")String titulo){
-		Consejo consejoEncontrado = consejoService.getBy(titulo);
+	@GetMapping("/eliminar/{id}")
+	public String eliminarConsejo(@PathVariable(value = "id")Long id){
+		Consejo consejoEncontrado = consejoService.getBy(id);
 		consejoService.eliminar(consejoEncontrado);
 		return "redirect:/consejos/listado";
 	}
