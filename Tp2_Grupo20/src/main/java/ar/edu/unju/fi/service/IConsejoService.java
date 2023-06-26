@@ -30,7 +30,7 @@ public interface IConsejoService {
      * @param nombre el nombre del consejo
      * @return el consejo con el nombre especificado
      */
-	Consejo getBy(String nombre);
+	Consejo getBy(Long id);
 	
 	/**
      * Modifica un consejo existente.
