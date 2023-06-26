@@ -3,7 +3,6 @@ package ar.edu.unju.fi.service;
 import java.util.List;
 
 import ar.edu.unju.fi.entity.Consejo;
-import jakarta.validation.Valid;
 
 /**
  * Esta interfaz define el contrato para gestionar objetos Consejo.
@@ -22,7 +21,7 @@ public interface IConsejoService {
      *
      * @param consejo el consejo a guardar
      */
-	void guardar(@Valid Consejo consejo);
+	void guardar(Consejo consejo);
 	
 	/**
      * Obtiene un consejo específico por su nombre.
@@ -30,14 +29,14 @@ public interface IConsejoService {
      * @param nombre el nombre del consejo
      * @return el consejo con el nombre especificado
      */
-	Consejo getBy(String nombre);
+	Consejo getBy(Long id);
 	
 	/**
      * Modifica un consejo existente.
      *
      * @param consejo el consejo actualizado
      */
-	void modificar(@Valid Consejo consejo);
+	void modificar(Consejo consejo);
 	
 	/**
      * Elimina un consejo.

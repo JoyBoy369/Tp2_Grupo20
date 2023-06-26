@@ -3,7 +3,6 @@ package ar.edu.unju.fi.service;
 import java.util.List;
 
 import ar.edu.unju.fi.entity.Sucursal;
-import jakarta.validation.Valid;
 
 /**
  * Esta interfaz define el contrato para gestionar objetos Sucursal.
@@ -22,7 +21,7 @@ public interface ISucursalService {
      *
      * @param sucursal la sucursal a guardar
      */
-    void guardar(@Valid Sucursal sucursal);
+    void guardar(Sucursal sucursal);
 
     /**
      * Obtiene una sucursal específica por su nombre.
@@ -37,7 +36,7 @@ public interface ISucursalService {
      *
      * @param sucursal la sucursal actualizada
      */
-    void modificar(@Valid Sucursal sucursal);
+    void modificar(Sucursal sucursal);
 
     /**
      * Elimina una sucursal.

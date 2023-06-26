@@ -2,6 +2,7 @@ package ar.edu.unju.fi.entity;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
@@ -48,6 +49,7 @@ public class Sucursal {
 	@Column(name = "fecha")
 	@PastOrPresent(message = "Ingrese la Fecha cuando se inaguro la Sucursal (No puede ser mayor que hoy)")
 	@NotNull(message = "No puede estar nulo la fecha")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate fecha;
 	
 	

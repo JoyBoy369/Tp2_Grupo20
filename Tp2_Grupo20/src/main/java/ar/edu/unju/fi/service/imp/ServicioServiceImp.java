@@ -35,6 +35,7 @@ public class ServicioServiceImp implements IServicioService {
 
 	@Override
 	public void guardar(@Valid Servicio servicio) {
+		servicio.setEstado(true);
 		servicioRepository.save(servicio);
 	}
 

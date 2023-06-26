@@ -3,7 +3,6 @@ package ar.edu.unju.fi.service;
 import java.util.List;
 
 import ar.edu.unju.fi.entity.Producto;
-import jakarta.validation.Valid;
 
 /**
  * Esta interfaz define el contrato para gestionar objetos Producto.
@@ -30,14 +29,14 @@ public interface IProductoService {
      *
      * @param producto el producto a guardar
      */
-	void guardar(@Valid Producto producto);
+	void guardar(Producto producto);
 	
     /**
      * Modifica un producto existente.
      *
      * @param producto el producto actualizado.
      */
-	void modificar(@Valid Producto producto);
+	void modificar(Producto producto);
 	
     /**
      * Elimina un producto.

@@ -16,10 +16,10 @@
 			<h2 th:text="${editar}?'Editar Paseador':'Registrar Nuevo Paseador'"></h2><br></br>
 			<form  th:action="${editar}?@{/servicios/editar}:@{/servicios/guardar}" th:object="${servicio}" method="post" >
 			
-				<label>ID:</label>
-				<input type="text"  id="mensaje" name="servicio_id"  th:readonly="${editar}?'readonly'" th:field="*{id}">
-				<div class="text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div><br><br>
-				
+				<div hidden="">	
+					<label>ID:</label>
+					<input type="text"  id="mensaje" name="servicio_id"  th:readonly="${editar}?'readonly'" th:field="*{id}">
+				</div>
 				
 				<label>Nombre:</label>
 				<input type="text"  id="mensaje" name="servicio_nombre" th:field="*{nombre}">
@@ -50,7 +50,7 @@
 				<div class="text-danger" th:if="${#fields.hasErrors('viernes')}" th:errors="*{viernes}"></div><br><br>
 				
 					<div class="d-grid">
-					 <button type="submit" th:text="${editar}?'Editar': 'Agregar Sucursal'"></button><br><br>
+					 <button type="submit" th:text="${editar}?'Editar': 'Agregar Servicio'"></button><br><br>
 						<p></p>
 					</div>
 			

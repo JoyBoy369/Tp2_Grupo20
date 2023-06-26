@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unju.fi.entity.Consejo;
-import ar.edu.unju.fi.listas.ListaConsejo;
+import ar.edu.unju.fi.repository.IConsejoRepository;
 import ar.edu.unju.fi.service.IConsejoService;
 import jakarta.validation.Valid;
 
@@ -14,10 +14,11 @@ import jakarta.validation.Valid;
  * Implementación de la interfaz IConsejoService.
  * Maneja las operaciones de gestión de consejos.
  */
-@Service
+@Service("consejoServiceImp")
 public class ConsejoServiceImp implements IConsejoService {
 	@Autowired
-	private ListaConsejo listaConsejos;
+	private IConsejoRepository consejoRepository;
+	
 	@Autowired
 	private Consejo consejo;
 	
@@ -27,7 +28,7 @@ public class ConsejoServiceImp implements IConsejoService {
      * @return la lista de consejos
      */
 public List <Consejo> getLista(){
-	return listaConsejos.getConsejoList();
+	return consejoRepository.findByEstado(true);
 }
 
 /**
@@ -36,7 +37,7 @@ public List <Consejo> getLista(){
  * @param consejo el consejo a guardar
  */
 public void guardar(@Valid Consejo consejo) {
-	listaConsejos.getConsejoList().add(consejo);
+	consejoRepository.save(consejo);
 	}
 
 /**
@@ -45,15 +46,9 @@ public void guardar(@Valid Consejo consejo) {
  * @param nombre el nombre del consejo
  * @return el consejo con el nombre especificado
  */
-public Consejo getBy(String nombre) {
-	Consejo consejoEncontrado = null;
-	for(Consejo consej: listaConsejos.getConsejoList()) {
-		if(consej.getTitulo().equals(nombre)) {
-			consejoEncontrado = consej;
-			break;
-		}
-	}
-	return consejoEncontrado;
+public Consejo getBy(Long id) {
+	
+	return consejoRepository.findById(id).get();
 	}
 
 /**
@@ -62,13 +57,8 @@ public Consejo getBy(String nombre) {
  * @param consejo el consejo actualizado
  */
 public void modificar(@Valid Consejo consejo) {
-	for(Consejo consej: listaConsejos.getConsejoList()){
-		if(consej.getTitulo().equals(consejo.getTitulo())) {
-			consej.setTitulo(consejo.getTitulo());
-			consej.setConsejo(consejo.getConsejo());
-			break;
-		}
-		}
+	consejo.setEstado(true);
+	consejoRepository.save(consejo);
 	}
 
 /**
@@ -77,7 +67,8 @@ public void modificar(@Valid Consejo consejo) {
  * @param consejo el consejo a eliminar
  */
 public void eliminar(Consejo consejoEncontrado) {
-	listaConsejos.getConsejoList().remove(consejoEncontrado);
+	consejoEncontrado.setEstado(false);
+	consejoRepository.save(consejoEncontrado);
 	}
 
 /**

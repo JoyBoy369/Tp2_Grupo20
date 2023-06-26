@@ -16,7 +16,12 @@
 			<div class="col p-5">
 			<section>
 			<h2 th:text="${editar}?'Editar Consejo':'Registrar Nuevo Consejo'"></h2><br></br>
-				<form th:action="${editar}?@{/consejos/editar}:@{/consejos/Guardar_Consejo}"th:object="${consejo}" method="post" >
+				<form th:action="${editar}?@{/consejos/editar}:@{/consejos/guardar_consejo}"th:object="${consejo}" method="post" >
+				
+					<div hidden="">
+					<input type="text" th:readonly="${editar}?'readonly'" id="mensaje"  th:field="*{id}">
+					</div>
+				
 				
 					<label>Titulo:</label>
 					<input type="text" th:readonly="${editar}?'readonly'" id="mensaje"  th:field="*{titulo}">
@@ -24,8 +29,8 @@
 					
 					
 					<label>Consejo:</label>
-					<textarea  id="mensaje" rows="5" cols="30" th:field="*{consejo}"></textarea>
-					<div class="text-danger" th:if="${#fields.hasErrors('consejo')}" th:errors="*{consejo}"></div><br><br>		
+					<textarea  id="mensaje" rows="5" cols="30" th:field="*{esconsejo}"></textarea>
+					<div class="text-danger" th:if="${#fields.hasErrors('esconsejo')}" th:errors="*{esconsejo}"></div><br><br>		
 					<div class="d-grid">
 					 <button type="submit" th:text="${editar}?'Editar Consejo': 'Agregar Consejo'"></button><br><br>
 						<p></p>
