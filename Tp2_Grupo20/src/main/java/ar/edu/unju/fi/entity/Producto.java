@@ -37,8 +37,8 @@ public class Producto {
 		
 		@Column (name="precio_producto",nullable = false)
 		@Positive(message="El precio no pude ser negativo ni 0")
+		private double precio;	
 		
-		private double precio;		
 		@Column (name="descuento_producto",nullable = false)
 		@Max(value=50,message="El descuento debe ser menor o igual de 50%")
 		@Min(value=0,message="El descuento debe ser positivo")
